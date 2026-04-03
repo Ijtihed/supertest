@@ -15,7 +15,7 @@ const translations = {
     landing: {
       headline: "Test each other's\ngames.",
       subheadline:
-        "Built for the Supercell AI Lab batch. Upload your game, get structured feedback from everyone in the cohort, and level up together. Sign in with Google, enter your Supercell email, and DM @ijtihedk on Slack so I can approve your account.",
+        "Built for the Supercell AI Lab batch. Upload your game, get structured feedback from everyone in the cohort, and level up together. Sign in with Google, enter your Supercell email, and DM @Ijtihedk on Slack so I can approve your account.",
       signInGoogle: "SIGN IN WITH GOOGLE",
       browseGames: "BROWSE GAMES",
       step1Title: "Upload",
@@ -41,7 +41,7 @@ const translations = {
         "One-click AI summary of all your feedback. Spot common themes across reviewers without reading every response.",
       accessTitle: "Access",
       accessDesc:
-        "Supertest is currently restricted to the Supercell AI Lab cohort. Sign in with Google, enter your Supercell email during onboarding, then DM @ijtihedk on Slack to get approved. You'll pick your cohort (Helsinki, San Francisco, or Tokyo) during setup.",
+        "Supertest is currently restricted to the Supercell AI Lab cohort. Sign in with Google, enter your Supercell email during onboarding, then DM @Ijtihedk on Slack to get approved. You'll pick your cohort (Helsinki, San Francisco, or Tokyo) during setup.",
       securityTitle: "Security & Privacy",
       securityDesc:
         "Being transparent: this was built by one dev as a side project. Your data (emails, game builds, cover images, feedback) is stored in Supabase (PostgreSQL + object storage) with row-level security policies. Auth is Google OAuth via Supabase. It's reasonably secure but I wouldn't call it battle-tested enterprise software. Don't upload anything you'd consider highly sensitive. The code is open and you can check exactly how everything works.",
@@ -233,7 +233,7 @@ const translations = {
     landing: {
       headline: "お互いのゲームを\nテストしよう。",
       subheadline:
-        "Supercell AI Labバッチ向けに構築。ゲームをアップロードし、コーホートのメンバーから構造化フィードバックを受け取り、一緒にレベルアップ。Googleでログインし、Supercellメールを入力後、Slackで @ijtihedk にDMして承認を受けてください。",
+        "Supercell AI Labバッチ向けに構築。ゲームをアップロードし、コーホートのメンバーから構造化フィードバックを受け取り、一緒にレベルアップ。Googleでログインし、Supercellメールを入力後、Slackで @Ijtihedk にDMして承認を受けてください。",
       signInGoogle: "GOOGLEでログイン",
       browseGames: "ゲームを見る",
       step1Title: "アップロード",
@@ -259,7 +259,7 @@ const translations = {
         "ワンクリックで全フィードバックのAI要約。すべてのレスポンスを読まなくても共通テーマを発見。",
       accessTitle: "アクセス",
       accessDesc:
-        "Supertestは現在Supercell AI Labコーホート限定です。Googleでログインし、オンボーディングでSupercellメールを入力後、Slackで @ijtihedk にDMして承認を受けてください。セットアップ時にコーホート（ヘルシンキ、サンフランシスコ、東京）を選択します。",
+        "Supertestは現在Supercell AI Labコーホート限定です。Googleでログインし、オンボーディングでSupercellメールを入力後、Slackで @Ijtihedk にDMして承認を受けてください。セットアップ時にコーホート（ヘルシンキ、サンフランシスコ、東京）を選択します。",
       securityTitle: "セキュリティ＆プライバシー",
       securityDesc:
         "正直に言うと：これは一人の開発者がサイドプロジェクトとして構築したものです。データ（メール、ゲームビルド、カバー画像、フィードバック）はSupabase（PostgreSQL + オブジェクトストレージ）に行レベルセキュリティポリシーで保存されます。認証はSupabase経由のGoogle OAuth。合理的に安全ですが、実戦テスト済みのエンタープライズソフトウェアとは言えません。高度に機密性のあるものはアップロードしないでください。",

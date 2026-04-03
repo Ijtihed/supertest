@@ -30,7 +30,7 @@ export default async function PendingPage() {
         </h1>
         <p className="font-body text-secondary leading-relaxed">
           Your account is waiting for approval. To speed things up, DM{" "}
-          <span className="text-primary font-mono">@ijtihedk</span> on Slack
+          <span className="text-primary font-mono">@Ijtihedk</span> on Slack
           and I&apos;ll get you in.
         </p>
         <div className="border border-outline-variant bg-surface-lowest p-4">
