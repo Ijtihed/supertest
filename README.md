@@ -1,7 +1,7 @@
 # Supertest - Playtesting platform for game developers.
 
 <p align="center">
-  <a href="package.json"><img src="https://img.shields.io/badge/version-0.1.0-white?style=for-the-badge" alt="Version"></a>
+  <a href="package.json"><img src="https://img.shields.io/badge/version-1.0.0--beta-white?style=for-the-badge" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="MIT License"></a>
   <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge" alt="Next.js 16"></a>
   <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ecf8e?style=for-the-badge" alt="Supabase"></a>
