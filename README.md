@@ -1,4 +1,4 @@
-# Supertest — Playtesting platform for the Supercell AI Lab batch.
+# Supertest — Playtesting platform for game developers.
 
 <p align="center">
   <a href="package.json"><img src="https://img.shields.io/badge/version-0.1.0-white?style=for-the-badge" alt="Version"></a>
@@ -7,9 +7,11 @@
   <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ecf8e?style=for-the-badge" alt="Supabase"></a>
 </p>
 
-**Supertest** is a playtesting platform where everyone in the batch uploads their game, plays each other's builds, and leaves structured feedback. Ratings, bug reports, video evidence, custom questions, AI summaries, leaderboard. Built by [@ijtihedk](https://github.com/Ijtihed) as a side project.
+**Supertest** is an open-source playtesting platform. Upload your game, play each other's builds, leave structured feedback. Ratings, bug reports, video evidence, custom questions, AI summaries, leaderboard. Built by [@ijtihedk](https://github.com/Ijtihed).
 
-Currently restricted to the **Supercell AI Lab** cohort. Sign in with Google, enter your Supercell email, DM **@ijtihedk** on Slack to get approved.
+> **The deployed instance is for the Supercell AI Lab cohort only.** Sign in with Google, enter your Supercell email, DM **@ijtihedk** on Slack to get approved.
+>
+> **The code is MIT licensed.** Fork it, deploy your own instance, swap the branding, use it for your own team/studio/class/jam. Everything is configurable — cohorts, questions, admin system, i18n. No Supercell-specific code baked in.
 
 ---
 
