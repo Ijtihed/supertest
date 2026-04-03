@@ -48,16 +48,6 @@ export function GameCard({
             <h3 className="text-white font-headline font-bold text-lg tracking-tight uppercase">
               {title}
             </h3>
-            <div className="flex gap-2 mt-1 flex-wrap">
-              {genres.slice(0, 2).map((genre) => (
-                <span
-                  key={genre}
-                  className="font-mono text-[13px] px-1.5 py-0.5 bg-surface-container text-muted uppercase"
-                >
-                  {genre}
-                </span>
-              ))}
-            </div>
           </div>
           <div className="flex flex-col items-end">
             <span className="font-mono text-[13px] text-muted mb-1">

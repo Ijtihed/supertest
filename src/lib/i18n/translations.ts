@@ -96,12 +96,12 @@ const translations = {
     newGame: {
       stepConfig: "Step 01 / Configuration",
       title: "Initialize New Game Build",
-      projectIdentity: "Project Identity",
+      projectIdentity: "Build / Game Name",
       titlePlaceholder: "Enter game title...",
       heroVisual: "Hero Visual Asset",
       dragDrop: "DRAG_DROP_OR_BROWSE_ASSETS",
       maxSize: "MAX 5MB (PNG, JPG, WEBP)",
-      description: "Build Manifest / Description",
+      description: "Description",
       descPlaceholder:
         "Brief overview of your game and what you'd like tested...",
       deliveryMethod: "Delivery Method",
@@ -314,7 +314,7 @@ const translations = {
     newGame: {
       stepConfig: "ステップ 01 / 設定",
       title: "新規ゲームビルドを初期化",
-      projectIdentity: "プロジェクト名",
+      projectIdentity: "ビルド / ゲーム名",
       titlePlaceholder: "ゲームタイトルを入力...",
       heroVisual: "カバー画像",
       dragDrop: "ドラッグ＆ドロップまたはクリック",

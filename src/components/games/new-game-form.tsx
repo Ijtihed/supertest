@@ -26,38 +26,22 @@ const PLATFORM_OPTIONS = ["Windows", "Mac", "Linux", "Web", "Mobile", "Console"]
 
 const PRESET_QUESTIONS_EN: CustomQuestion[] = [
   { id: crypto.randomUUID(), text: "How intuitive were the controls?", type: "rating" },
-  { id: crypto.randomUUID(), text: "Did the tutorial explain things clearly?", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "What was the most confusing part of the game?", type: "text" },
-  { id: crypto.randomUUID(), text: "How would you rate the difficulty curve?", type: "rating" },
+  { id: crypto.randomUUID(), text: "What was the most confusing part?", type: "text" },
   { id: crypto.randomUUID(), text: "Did you experience any crashes or freezes?", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "Were there any moments where you felt lost or stuck?", type: "text" },
   { id: crypto.randomUUID(), text: "How polished did the visuals feel?", type: "rating" },
-  { id: crypto.randomUUID(), text: "Was the audio/music appropriate for the gameplay?", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "How responsive did the game feel? (input lag, frame rate)", type: "rating" },
-  { id: crypto.randomUUID(), text: "Did the UI/HUD provide enough information?", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "What feature or mechanic would you add or change?", type: "text" },
-  { id: crypto.randomUUID(), text: "How long did your play session last?", type: "text" },
-  { id: crypto.randomUUID(), text: "Would you recommend this game to a friend?", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "How would you rate the overall game feel / 'juice'?", type: "rating" },
-  { id: crypto.randomUUID(), text: "Any additional thoughts on level design or pacing?", type: "text" },
+  { id: crypto.randomUUID(), text: "How responsive did the game feel?", type: "rating" },
+  { id: crypto.randomUUID(), text: "What would you add or change?", type: "text" },
+  { id: crypto.randomUUID(), text: "Would you recommend this to a friend?", type: "yes_no" },
 ];
 
 const PRESET_QUESTIONS_JA: CustomQuestion[] = [
   { id: crypto.randomUUID(), text: "操作は直感的でしたか？", type: "rating" },
-  { id: crypto.randomUUID(), text: "チュートリアルはわかりやすかったですか？", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "ゲームで最も混乱した部分は何ですか？", type: "text" },
-  { id: crypto.randomUUID(), text: "難易度の曲線はどうでしたか？", type: "rating" },
+  { id: crypto.randomUUID(), text: "最も混乱した部分は何ですか？", type: "text" },
   { id: crypto.randomUUID(), text: "クラッシュやフリーズは発生しましたか？", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "迷ったり詰まったりした場面はありましたか？", type: "text" },
   { id: crypto.randomUUID(), text: "ビジュアルの完成度はどうでしたか？", type: "rating" },
-  { id: crypto.randomUUID(), text: "オーディオ/音楽はゲームプレイに合っていましたか？", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "ゲームのレスポンスはどうでしたか？（入力遅延、フレームレート）", type: "rating" },
-  { id: crypto.randomUUID(), text: "UI/HUDは十分な情報を提供していましたか？", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "追加または変更したい機能やメカニクスは何ですか？", type: "text" },
-  { id: crypto.randomUUID(), text: "プレイセッションはどのくらいの長さでしたか？", type: "text" },
-  { id: crypto.randomUUID(), text: "このゲームを友人に勧めますか？", type: "yes_no" },
-  { id: crypto.randomUUID(), text: "全体的なゲームフィール/「手応え」の評価は？", type: "rating" },
-  { id: crypto.randomUUID(), text: "レベルデザインやペーシングについて追加の感想はありますか？", type: "text" },
+  { id: crypto.randomUUID(), text: "ゲームのレスポンスはどうでしたか？", type: "rating" },
+  { id: crypto.randomUUID(), text: "何を追加または変更しますか？", type: "text" },
+  { id: crypto.randomUUID(), text: "友人に勧めますか？", type: "yes_no" },
 ];
 
 export function NewGameForm() {
