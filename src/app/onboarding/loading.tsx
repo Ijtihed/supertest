@@ -1,4 +1,4 @@
-export default function Loading() {
+export default function OnboardingLoading() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-6">
@@ -6,12 +6,7 @@ export default function Loading() {
           <div className="absolute inset-0 border border-primary/30 animate-ping" />
           <div className="absolute inset-0 border border-primary border-t-transparent animate-spin" />
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="font-mono text-[14px] text-primary tracking-widest">
-            LOADING
-          </p>
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent animate-pulse" />
-        </div>
+        <p className="font-mono text-[13px] text-muted tracking-widest">SETTING UP YOUR ACCOUNT</p>
       </div>
     </div>
   );
