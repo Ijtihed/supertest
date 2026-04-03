@@ -436,8 +436,7 @@ export function EditGameForm({
                   </span>
                   <div className="flex-1 min-w-0">
                     <span className="font-mono text-[13px] text-muted uppercase block mb-1">
-                      Q{String(i + 1).padStart(2, "0")} //{" "}
-                      {q.type.toUpperCase().replace("_", "/")}
+                      Q{String(i + 1).padStart(2, "0")} {"/ "}{q.type.toUpperCase().replace("_", "/")}
                     </span>
                     <input
                       type="text"
