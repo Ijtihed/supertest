@@ -17,8 +17,14 @@ const inter = Inter({
   display: "swap",
 });
 
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://supertest.vercel.app"),
+  metadataBase: new URL(baseUrl),
   title: {
     default: "Supertest",
     template: "%s · Supertest",
