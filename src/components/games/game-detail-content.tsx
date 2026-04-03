@@ -101,7 +101,7 @@ export function GameDetailContent({
       if (error) return;
       setShowLiveForm(false);
       setLiveUrl("");
-      addToast("Session is LIVE", "success");
+      addToast("Multiplayer session started", "success");
       router.refresh();
     } finally {
       setLiveSubmitting(false);
@@ -164,8 +164,8 @@ export function GameDetailContent({
           </h2>
           <div className="flex gap-4 items-center">
             {game.is_live && (
-              <span className="px-3 py-1 bg-red-600 text-white font-mono text-[13px] font-bold tracking-widest uppercase animate-pulse">
-                LIVE
+              <span className="px-3 py-1 bg-success text-black font-mono text-[13px] font-bold tracking-widest uppercase animate-pulse">
+                MULTIPLAYER
               </span>
             )}
             <span className="px-2 py-0.5 border border-white font-mono text-[13px] tracking-widest text-white uppercase">
@@ -403,8 +403,8 @@ export function GameDetailContent({
                     {game.is_live ? (
                       <div className="space-y-3">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                          <span className="font-mono text-[14px] text-white font-bold tracking-widest">LIVE SESSION</span>
+                          <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
+                          <span className="font-mono text-[14px] text-white font-bold tracking-widest">MULTIPLAYER SESSION</span>
                         </div>
                         {game.live_session_url && (
                           <p className="font-mono text-[13px] text-secondary break-all leading-relaxed">{game.live_session_url}</p>
@@ -414,11 +414,11 @@ export function GameDetailContent({
                           onClick={() => {
                             const url = `${inviteOrigin}/games/${game.id}`;
                             navigator.clipboard.writeText(url);
-                            addToast("Live link copied", "success");
+                            addToast("Session link copied", "success");
                           }}
                           className="w-full border border-outline-variant py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase text-white hover:border-white transition-all cursor-pointer"
                         >
-                          COPY LIVE LINK
+                          COPY SESSION LINK
                         </button>
                         <button
                           type="button"
@@ -447,9 +447,9 @@ export function GameDetailContent({
                           type="button"
                           disabled={liveSubmitting}
                           onClick={goLive}
-                          className="w-full bg-red-600 text-white py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-red-700 transition-all disabled:opacity-50 cursor-pointer"
+                          className="w-full bg-success text-black py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-success/80 transition-all disabled:opacity-50 cursor-pointer"
                         >
-                          {liveSubmitting ? "..." : "GO LIVE"}
+                          {liveSubmitting ? "..." : "START SESSION"}
                         </button>
                         <button
                           type="button"
@@ -465,8 +465,8 @@ export function GameDetailContent({
                         onClick={() => setShowLiveForm(true)}
                         className="w-full border border-outline-variant py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase text-white hover:border-white transition-all cursor-pointer flex items-center justify-center gap-2"
                       >
-                        <span className="w-2 h-2 bg-red-500 rounded-full" />
-                        GO LIVE
+                        <span className="w-2 h-2 bg-success rounded-full" />
+                        MULTIPLAYER SESSION
                       </button>
                     )}
                   </div>
@@ -510,23 +510,23 @@ export function GameDetailContent({
               ) : (
                 <>
                   {game.is_live && (
-                    <div className="border border-red-600/50 bg-red-600/10 p-4 mb-3">
+                    <div className="border border-success/50 bg-success/10 p-4 mb-3">
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                        <span className="font-mono text-[14px] text-white font-bold tracking-widest">LIVE SESSION</span>
+                        <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
+                        <span className="font-mono text-[14px] text-white font-bold tracking-widest">MULTIPLAYER SESSION</span>
                       </div>
                       {game.live_session_url && (
                         <a
                           href={game.live_session_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full bg-red-600 text-white py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-red-700 transition-all block text-center mb-2"
+                          className="w-full bg-success text-black py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-success/80 transition-all block text-center mb-2"
                         >
                           JOIN SESSION
                         </a>
                       )}
                       <p className="font-mono text-[13px] text-muted">
-                        {game.live_session_url ? game.live_session_url : "Session is live - contact the developer to join"}
+                        {game.live_session_url ? game.live_session_url : "Session is active - contact the developer to join"}
                       </p>
                     </div>
                   )}

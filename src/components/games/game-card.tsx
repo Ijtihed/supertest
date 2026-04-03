@@ -39,8 +39,8 @@ export function GameCard({
         )}
         <div className="absolute top-3 left-3 flex gap-2">
           {game.is_live && (
-            <span className="bg-red-600 text-white px-2 py-0.5 font-mono text-[13px] font-bold tracking-wider animate-pulse">
-              LIVE
+            <span className="bg-success text-black px-2 py-0.5 font-mono text-[13px] font-bold tracking-wider animate-pulse">
+              MULTIPLAYER
             </span>
           )}
           <span className="bg-black/80 px-2 py-0.5 border border-white/20 font-mono text-[13px] tracking-tighter text-white">
