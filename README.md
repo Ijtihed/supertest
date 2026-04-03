@@ -1,4 +1,4 @@
-# Supertest — Playtesting platform for game developers.
+# Supertest - Playtesting platform for game developers.
 
 <p align="center">
   <a href="package.json"><img src="https://img.shields.io/badge/version-0.1.0-white?style=for-the-badge" alt="Version"></a>
@@ -11,7 +11,7 @@
 
 > **The deployed instance is for the Supercell AI Lab cohort only.** Sign in with Google, enter your Supercell email, DM **@ijtihedk** on Slack to get approved.
 >
-> **The code is MIT licensed.** Fork it, deploy your own instance, swap the branding, use it for your own team/studio/class/jam. Everything is configurable — cohorts, questions, admin system, i18n. No Supercell-specific code baked in.
+> **The code is MIT licensed.** Fork it, deploy your own instance, swap the branding, use it for your own team/studio/class/jam. Everything is configurable - cohorts, questions, admin system, i18n. No Supercell-specific code baked in.
 
 ---
 
@@ -23,7 +23,7 @@
 | Get feedback | 15 preset tester questions + custom questions you define |
 | See results | Ratings breakdown, bug reports, video links, AI summary, CSV export |
 | Find games to test | Browse page with genre/platform filters |
-| Track engagement | Review points system — +10 per review, leaderboard |
+| Track engagement | Review points system - +10 per review, leaderboard |
 | Control access | Public dashboard or private invite link per game |
 | Admin | Approve/reject users, bulk approve, search by name/email |
 
@@ -58,12 +58,12 @@
 | `/dashboard` | Approved | Your games + reviews + points |
 | `/games` | Approved | Browse all public games |
 | `/games/new` | Approved | Create a new game |
-| `/games/[id]` | Approved | Game detail — ratings, description, download |
+| `/games/[id]` | Approved | Game detail - ratings, description, download |
 | `/games/[id]/edit` | Owner | Edit game after publishing |
 | `/games/[id]/feedback` | Approved | Submit structured feedback |
 | `/games/[id]/results` | Owner | Feedback dashboard + AI summary + CSV export |
 | `/leaderboard` | Approved | Top 50 reviewers by points |
-| `/profile/[id]` | Approved | User profile — games, reviews, stats |
+| `/profile/[id]` | Approved | User profile - games, reviews, stats |
 | `/admin` | Admin | Approve/reject users, bulk approve, search |
 | `/settings` | Approved | Cohort, language, account |
 | `/invite/[code]` | Approved | Private invite link resolver |
@@ -82,7 +82,7 @@ npm install
 cp .env.local.example .env.local
 # Fill in your Supabase URL + anon key
 
-# 3. Database setup — run these in Supabase SQL editor:
+# 3. Database setup - run these in Supabase SQL editor:
 #    supabase/schema.sql        (base tables)
 #    supabase/add_cohort.sql    (cohort column)
 #    supabase/add_admin_and_points.sql  (admin + points system)
@@ -119,11 +119,11 @@ Reviewers earn **+10 points** per review. Points show on the leaderboard.
 ### Results Dashboard
 
 Game owners see:
-- Stats row — response count, average rating, average fun, play-again %
-- **AI summary** — one-click analysis of all feedback (runs locally, no API key)
+- Stats row - response count, average rating, average fun, play-again %
+- **AI summary** - one-click analysis of all feedback (runs locally, no API key)
 - Custom question bar charts
 - Verbatim feedback logs with relative timestamps
-- **CSV export** — download all feedback as a spreadsheet
+- **CSV export** - download all feedback as a spreadsheet
 
 ### Admin System
 
@@ -138,8 +138,8 @@ Game owners see:
 - Cover image upload (5MB max, PNG/JPG/WEBP only)
 - 28 genre tags, 6 platform options
 - Public dashboard or private invite link
-- **Disable builds** — optionally redirect to a successor build
-- **Re-enable builds** — bring disabled games back
+- **Disable builds** - optionally redirect to a successor build
+- **Re-enable builds** - bring disabled games back
 - Edit everything after publishing
 
 ### i18n
@@ -207,8 +207,8 @@ src/
 Full breakdown at [`/security`](src/app/security/page.tsx). Summary:
 
 - **Auth**: Google OAuth via Supabase, HTTP-only session cookies
-- **Database**: Row Level Security on every table — users can only read/write what they're allowed to
-- **SQL injection**: Impossible — all queries use Supabase client parameterized API, zero raw SQL
+- **Database**: Row Level Security on every table - users can only read/write what they're allowed to
+- **SQL injection**: Impossible - all queries use Supabase client parameterized API, zero raw SQL
 - **Uploads**: Cover images only (PNG/JPG/WEBP, 5MB max). No game file uploads. Two-layer size check (client + pre-upload)
 - **Admin gate**: All routes require approved status. Pending users see a waiting screen.
 - **No secrets in code**: env vars only, `.env.local` gitignored
@@ -219,7 +219,7 @@ What's NOT covered: no E2E encryption, no rate limiting beyond Supabase defaults
 
 ## Design System
 
-**The Monolith Protocol** — dark-mode only, monochrome, brutalist.
+**The Monolith Protocol** - dark-mode only, monochrome, brutalist.
 
 - Background `#131313` / Surfaces `#0E0E0E` → `#393939`
 - Text `#e8e8e8` primary / `#d0d0d0` secondary / `#525252` muted
@@ -231,4 +231,4 @@ What's NOT covered: no E2E encryption, no rate limiting beyond Supabase defaults
 
 ## License
 
-MIT — do whatever you want with it.
+MIT - do whatever you want with it.
