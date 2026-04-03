@@ -51,6 +51,7 @@ export interface Database {
           status: GameStatus;
           is_live: boolean;
           live_session_url: string | null;
+          collaborator_ids: string[];
           created_at: string;
         };
         Insert: {
@@ -69,6 +70,7 @@ export interface Database {
           status?: GameStatus;
           is_live?: boolean;
           live_session_url?: string | null;
+          collaborator_ids?: string[];
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["games"]["Insert"]>;

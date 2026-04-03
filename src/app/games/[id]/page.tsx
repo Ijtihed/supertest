@@ -36,6 +36,15 @@ export default async function GameDetailPage({
       : "0.0";
   const isOwner = user.id === game.owner_id;
 
+  let collaborators: { id: string; display_name: string; avatar_url: string | null }[] = [];
+  if (game.collaborator_ids?.length > 0) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", game.collaborator_ids);
+    collaborators = data ?? [];
+  }
+
   return (
     <AppShell profile={profile}>
       <GameDetailContent
@@ -43,6 +52,7 @@ export default async function GameDetailPage({
         feedbackCount={feedbackCount}
         avgRating={avgRating}
         isOwner={isOwner}
+        collaborators={collaborators}
       />
     </AppShell>
   );

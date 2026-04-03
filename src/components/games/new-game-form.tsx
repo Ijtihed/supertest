@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/i18n/context";
 import { createClient } from "@/lib/supabase/client";
 import { useToast } from "@/lib/toast/context";
+import { CollaboratorPicker } from "@/components/games/collaborator-picker";
 import type { GameType, Visibility, QuestionType } from "@/lib/types/database";
 
 interface CustomQuestion {
@@ -56,10 +57,19 @@ export function NewGameForm() {
   const [genres, setGenres] = useState<string[]>([]);
   const [visibility, setVisibility] = useState<Visibility>("public");
   const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [collaboratorIds, setCollaboratorIds] = useState<string[]>([]);
+  const [currentUserId, setCurrentUserId] = useState<string>("");
   const [customQuestions, setCustomQuestions] = useState<CustomQuestion[]>(
     () => (locale === "ja" ? PRESET_QUESTIONS_JA : PRESET_QUESTIONS_EN).map(q => ({ ...q, id: crypto.randomUUID() }))
   );
   const [submitting, setSubmitting] = useState(false);
+
+  useState(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) setCurrentUserId(user.id);
+    });
+  });
 
   function toggleArrayItem(arr: string[], item: string) {
     return arr.includes(item) ? arr.filter((i) => i !== item) : [...arr, item];
@@ -126,6 +136,7 @@ export function NewGameForm() {
           platforms,
           genres,
           visibility,
+          collaborator_ids: collaboratorIds,
         })
         .select()
         .single();
@@ -373,6 +384,14 @@ export function NewGameForm() {
               ))}
             </div>
           </div>
+
+          {/* Collaborators */}
+          <div className="h-px w-full bg-outline-variant" />
+          <CollaboratorPicker
+            selected={collaboratorIds}
+            onChange={setCollaboratorIds}
+            excludeUserId={currentUserId}
+          />
 
           {/* Submit */}
           <div className="flex justify-end items-center gap-3 pt-8 border-t border-outline-variant">

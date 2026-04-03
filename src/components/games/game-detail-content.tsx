@@ -18,11 +18,13 @@ export function GameDetailContent({
   feedbackCount,
   avgRating,
   isOwner,
+  collaborators = [],
 }: {
   game: GameWithProfile;
   feedbackCount: number;
   avgRating: string;
   isOwner: boolean;
+  collaborators?: { id: string; display_name: string; avatar_url: string | null }[];
 }) {
   const { t, locale } = useApp();
   const { addToast } = useToast();
@@ -193,6 +195,20 @@ export function GameDetailContent({
             {game.profiles?.display_name ?? t.common.unknown}
           </span>
         </div>
+        {collaborators.length > 0 && (
+          <div className="flex flex-col">
+            <span className="font-mono text-[13px] text-muted uppercase tracking-widest mb-1">
+              Team
+            </span>
+            <div className="flex items-center gap-2">
+              {collaborators.map((c) => (
+                <span key={c.id} className="font-mono text-xs text-white uppercase font-bold">
+                  {c.display_name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
         <div className="flex flex-col">
           <span className="font-mono text-[13px] text-muted uppercase tracking-widest mb-1">
             {t.gameDetail.feedback}
