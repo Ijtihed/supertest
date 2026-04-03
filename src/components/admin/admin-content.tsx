@@ -49,13 +49,26 @@ export function AdminContent({
   async function setStatus(userId: string, status: "approved" | "rejected") {
     if (userId === adminProfile.id) return;
     setBusyId(userId);
-    const supabase = createClient();
-    const { error } = await supabase
-      .from("profiles")
-      .update({ status })
-      .eq("id", userId);
-    setBusyId(null);
-    if (!error) router.refresh();
+    try {
+      const supabase = createClient();
+      const { error, count } = await supabase
+        .from("profiles")
+        .update({ status })
+        .eq("id", userId)
+        .select();
+      if (error) {
+        addToast(`Failed: ${error.message}`, "error");
+      } else if (!count || count === 0) {
+        addToast("Update failed - check admin RLS policy in Supabase", "error");
+      } else {
+        addToast(`User ${status}`, "success");
+        router.refresh();
+      }
+    } catch {
+      addToast("Failed to update user", "error");
+    } finally {
+      setBusyId(null);
+    }
   }
 
   async function approveAllPending() {
@@ -181,24 +194,28 @@ export function AdminContent({
                   {new Date(p.created_at).toLocaleString()}
                 </span>
                 <div className="flex justify-end gap-2 shrink-0">
-                  {p.status === "pending" && (
+                  {p.id !== adminProfile.id && (
                     <>
-                      <button
-                        type="button"
-                        disabled={busyId === p.id || p.id === adminProfile.id}
-                        onClick={() => setStatus(p.id, "approved")}
-                        className="border border-outline-variant px-3 py-1.5 font-mono text-[13px] uppercase tracking-wider text-primary hover:bg-primary hover:text-on-primary disabled:opacity-40 transition-colors"
-                      >
-                        Approve
-                      </button>
-                      <button
-                        type="button"
-                        disabled={busyId === p.id || p.id === adminProfile.id}
-                        onClick={() => setStatus(p.id, "rejected")}
-                        className="border border-outline-variant px-3 py-1.5 font-mono text-[13px] uppercase tracking-wider text-muted hover:border-error hover:text-error disabled:opacity-40 transition-colors"
-                      >
-                        Reject
-                      </button>
+                      {p.status !== "approved" && (
+                        <button
+                          type="button"
+                          disabled={busyId === p.id}
+                          onClick={() => setStatus(p.id, "approved")}
+                          className="border border-outline-variant px-3 py-1.5 font-mono text-[13px] uppercase tracking-wider text-primary hover:bg-primary hover:text-on-primary disabled:opacity-40 transition-colors cursor-pointer"
+                        >
+                          Approve
+                        </button>
+                      )}
+                      {p.status !== "rejected" && (
+                        <button
+                          type="button"
+                          disabled={busyId === p.id}
+                          onClick={() => setStatus(p.id, "rejected")}
+                          className="border border-outline-variant px-3 py-1.5 font-mono text-[13px] uppercase tracking-wider text-muted hover:border-error hover:text-error disabled:opacity-40 transition-colors cursor-pointer"
+                        >
+                          Reject
+                        </button>
+                      )}
                     </>
                   )}
                 </div>
