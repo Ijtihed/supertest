@@ -19,6 +19,7 @@ const mockGame: Game = {
   status: "active",
   is_live: false,
   live_session_url: null,
+  collaborator_ids: [],
   created_at: "2025-01-01T00:00:00Z",
 };
 
