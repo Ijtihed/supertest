@@ -53,7 +53,7 @@ export function BrowseContent({
             href={`/games/${game.id}`}
             className="group border border-outline-variant bg-surface-lowest hover:border-white transition-all duration-300 block"
           >
-            <div className="aspect-video overflow-hidden relative grayscale group-hover:grayscale-0 transition-all duration-500">
+            <div className="aspect-video overflow-hidden relative transition-all duration-500">
               {game.cover_image_url ? (
                 <img
                   src={game.cover_image_url}

@@ -26,7 +26,9 @@ export function GameCard({
           <img
             src={game.cover_image_url}
             alt={title}
-            className="w-full h-full object-cover opacity-80 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+            className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-500 ${
+              game.status === "active" ? "opacity-100" : "opacity-60 grayscale"
+            }`}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
