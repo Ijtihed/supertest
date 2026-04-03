@@ -311,58 +311,6 @@ export function EditGameForm({
 
           <div className="flex flex-col gap-4">
             <label className="font-mono text-[14px] tracking-widest text-muted uppercase">
-              {t.newGame.targetArchitectures}
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {PLATFORM_OPTIONS.map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  onClick={() =>
-                    setPlatforms(toggleArrayItem(platforms, p))
-                  }
-                  className={`px-4 py-2 border font-mono text-[14px] uppercase transition-all cursor-pointer ${
-                    platforms.includes(p)
-                      ? "border-primary text-white"
-                      : "border-outline-variant text-muted hover:border-secondary hover:text-secondary"
-                  }`}
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="h-px w-full bg-outline-variant" />
-
-          <div className="flex flex-col gap-4">
-            <label className="font-mono text-[14px] tracking-widest text-muted uppercase">
-              {t.newGame.genreTags}
-            </label>
-            <div className="flex flex-wrap gap-3">
-              {GENRE_OPTIONS.map((g) => (
-                <label
-                  key={g}
-                  className="flex items-center gap-2 cursor-pointer group"
-                >
-                  <input
-                    type="checkbox"
-                    checked={genres.includes(g)}
-                    onChange={() =>
-                      setGenres(toggleArrayItem(genres, g))
-                    }
-                    className="w-4 h-4 bg-surface border-outline-variant text-primary rounded-none focus:ring-0"
-                  />
-                  <span className="font-mono text-[14px] text-muted uppercase group-hover:text-white transition-colors">
-                    {g}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <label className="font-mono text-[14px] tracking-widest text-muted uppercase">
               {t.newGame.visibility}
             </label>
             <div className="flex gap-4">
