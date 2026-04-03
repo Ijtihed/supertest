@@ -44,4 +44,4 @@ Untitled
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-.github/workflows/
+/web/
