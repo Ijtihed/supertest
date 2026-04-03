@@ -32,11 +32,12 @@ export function ResultsContent({
     count > 0
       ? (responses.reduce((a, b) => a + b.overall_rating, 0) / count).toFixed(1)
       : "0.0";
+  const funResponses = responses.filter((r) => r.fun_factor_rating);
   const avgFun =
-    count > 0
+    funResponses.length > 0
       ? (
-          responses.reduce((a, b) => a + (b.fun_factor_rating ?? 0), 0) /
-          responses.filter((r) => r.fun_factor_rating).length
+          funResponses.reduce((a, b) => a + (b.fun_factor_rating ?? 0), 0) /
+          funResponses.length
         ).toFixed(1)
       : "0.0";
   const playAgainPct =

@@ -41,7 +41,7 @@ export function DashboardContent({
           <p className="font-mono text-[14px] text-muted mt-2 tracking-widest flex flex-wrap items-center gap-x-3 gap-y-1">
             <span>
               {t.dashboard.systemStatus}:{" "}
-              <span className="text-white">{t.dashboard.operational}</span>{" / "}{myGames.length} {t.dashboard.activeBuilds}
+              <span className="text-white">{t.dashboard.operational}</span>{" / "}{myGames.filter((g) => g.status === "active").length} {t.dashboard.activeBuilds}
             </span>
             <span className="font-mono text-white">POINTS: {reviewPoints}</span>
           </p>

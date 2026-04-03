@@ -8,16 +8,20 @@ export function AppShell({
   profile,
   topnavTitle,
   showSearch = false,
+  searchValue = "",
+  onSearchChange,
 }: {
   children: React.ReactNode;
   profile: Profile | null;
   topnavTitle?: string;
   showSearch?: boolean;
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
 }) {
   return (
     <>
       <Sidebar profile={profile} />
-      <Topnav title={topnavTitle} showSearch={showSearch} />
+      <Topnav title={topnavTitle} showSearch={showSearch} searchValue={searchValue} onSearchChange={onSearchChange} />
       <main className="ml-[220px] pt-14 min-h-screen flex flex-col">
         <div className="flex-1 p-8">{children}</div>
         <Footer />

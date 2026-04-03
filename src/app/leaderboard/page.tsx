@@ -20,10 +20,10 @@ export default async function LeaderboardPage() {
   if (profileIds.length > 0) {
     const { data: gameCounts } = await supabase
       .from("games")
-      .select("user_id")
-      .in("user_id", profileIds);
+      .select("owner_id")
+      .in("owner_id", profileIds);
     (gameCounts ?? []).forEach((g) => {
-      gameCountMap[g.user_id] = (gameCountMap[g.user_id] || 0) + 1;
+      gameCountMap[g.owner_id] = (gameCountMap[g.owner_id] || 0) + 1;
     });
   }
 

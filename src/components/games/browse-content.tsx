@@ -24,17 +24,22 @@ const SORTS = [
 export function BrowseContent({
   games,
   feedbackCounts,
+  search = "",
 }: {
   games: GameWithProfile[];
   feedbackCounts: Record<string, number>;
+  search?: string;
 }) {
   const { t } = useApp();
   const [activePlatform, setActivePlatform] = useState("ALL");
   const [activeCohort, setActiveCohort] = useState("ALL");
   const [activeSort, setActiveSort] = useState("newest");
 
+  const query = search.toLowerCase().trim();
+
   const filtered = games
     .filter((game) => {
+      if (query && !game.title.toLowerCase().includes(query)) return false;
       if (activePlatform !== "ALL") {
         if (!(game.platforms ?? []).some((p) => p.toUpperCase().includes(activePlatform))) return false;
       }

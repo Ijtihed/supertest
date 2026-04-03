@@ -22,7 +22,9 @@ export function Footer({ withSidebar = false }: { withSidebar?: boolean }) {
       </div>
       <div className="flex gap-6">
         <a
-          href="#"
+          href="https://github.com/Ijtihed/supertest"
+          target="_blank"
+          rel="noopener noreferrer"
           className="font-mono text-[13px] tracking-widest uppercase text-muted hover:text-primary underline underline-offset-4 transition-colors"
         >
           GITHUB

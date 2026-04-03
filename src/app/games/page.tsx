@@ -1,5 +1,4 @@
-import { AppShell } from "@/components/layout/app-shell";
-import { BrowseContent } from "@/components/games/browse-content";
+import { BrowseShell } from "@/components/games/browse-shell";
 import { requireProfile } from "@/lib/auth/require-profile";
 
 export const dynamic = "force-dynamic";
@@ -27,8 +26,6 @@ export default async function BrowseGamesPage() {
   }
 
   return (
-    <AppShell profile={profile} topnavTitle="BROWSE" showSearch>
-      <BrowseContent games={games ?? []} feedbackCounts={countMap} />
-    </AppShell>
+    <BrowseShell profile={profile} games={games ?? []} feedbackCounts={countMap} />
   );
 }

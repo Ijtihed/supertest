@@ -6,9 +6,13 @@ import { useApp } from "@/lib/i18n/context";
 export function Topnav({
   title,
   showSearch = false,
+  searchValue = "",
+  onSearchChange,
 }: {
   title?: string;
   showSearch?: boolean;
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
 }) {
   const { locale, setLocale, t } = useApp();
 
@@ -27,6 +31,8 @@ export function Topnav({
             </span>
             <input
               type="text"
+              value={searchValue}
+              onChange={(e) => onSearchChange?.(e.target.value)}
               placeholder={locale === "ja" ? "ゲームを検索..." : "Search games..."}
               className="bg-surface-lowest border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono text-sm placeholder:text-muted/50 pl-9 pr-3 py-2 w-64"
             />

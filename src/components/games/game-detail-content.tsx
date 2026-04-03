@@ -32,7 +32,9 @@ export function GameDetailContent({
   const { addToast } = useToast();
   const router = useRouter();
   const stars = Math.round(parseFloat(avgRating));
-  const [inviteOrigin, setInviteOrigin] = useState("");
+  const [inviteOrigin, setInviteOrigin] = useState(() =>
+    typeof window !== "undefined" ? window.location.origin : ""
+  );
   const [showDisableForm, setShowDisableForm] = useState(false);
   const [disableRedirect, setDisableRedirect] = useState("");
   const [disableSubmitting, setDisableSubmitting] = useState(false);

@@ -1,11 +1,14 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { Footer } from "@/components/layout/footer";
 import { SignInButton } from "@/components/auth/sign-in-button";
 import { useApp } from "@/lib/i18n/context";
 
 export default function LandingPage() {
   const { locale, setLocale, t } = useApp();
+  const searchParams = useSearchParams();
+  const authError = searchParams.get("error") === "auth";
 
   return (
     <div className="bg-black-absolute text-primary min-h-screen flex flex-col">
@@ -46,6 +49,14 @@ export default function LandingPage() {
       </nav>
 
       <main className="pt-14 flex-1">
+        {authError && (
+          <div className="bg-error/10 border-b border-error/30 px-6 py-3 text-center">
+            <p className="font-mono text-[13px] tracking-widest uppercase text-error">
+              Sign in failed — please try again
+            </p>
+          </div>
+        )}
+
         {/* Hero */}
         <section className="relative min-h-[716px] flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden">
           <div className="absolute inset-0 data-matrix-grid opacity-20 pointer-events-none" />
