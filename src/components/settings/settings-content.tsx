@@ -27,6 +27,7 @@ export function SettingsContent({
   const [cohort, setCohort] = useState<Cohort | null>(profile.cohort);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [updatesOpen, setUpdatesOpen] = useState(false);
 
   async function handleCohortChange(newCohort: Cohort) {
     setCohort(newCohort);
@@ -162,24 +163,36 @@ export function SettingsContent({
           </button>
         </form>
 
-        {/* Updates */}
+        {/* Latest Updates */}
         {commits.length > 0 && (
           <div className="pt-4">
-            <label className="font-mono text-[14px] tracking-widest text-muted uppercase block mb-6">
-              Latest
-            </label>
-            <div className="space-y-4">
-              {commits.map((c, i) => (
-                <div key={i} className="flex gap-4">
-                  <span className="font-mono text-[12px] text-muted shrink-0 pt-0.5">
-                    {c.date}
-                  </span>
-                  <span className="font-mono text-[13px] text-primary/70">
-                    {c.message}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <button
+              type="button"
+              onClick={() => setUpdatesOpen((o) => !o)}
+              className="flex items-center justify-between w-full group cursor-pointer"
+            >
+              <span className="font-mono text-[14px] tracking-widest text-muted uppercase">
+                Latest Updates
+              </span>
+              <span className="font-mono text-[12px] text-muted group-hover:text-primary transition-colors">
+                {updatesOpen ? "▲" : "▼"}
+              </span>
+            </button>
+
+            {updatesOpen && (
+              <div className="mt-6 space-y-4">
+                {commits.map((c, i) => (
+                  <div key={i} className="flex gap-4">
+                    <span className="font-mono text-[12px] text-muted shrink-0 pt-0.5">
+                      {c.date}
+                    </span>
+                    <span className="font-mono text-[13px] text-primary/70">
+                      {c.message}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
