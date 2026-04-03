@@ -31,6 +31,7 @@ export function Topnav({
             </span>
             <input
               type="text"
+              aria-label={locale === "ja" ? "ゲームを検索" : "Search games"}
               value={searchValue}
               onChange={(e) => onSearchChange?.(e.target.value)}
               placeholder={locale === "ja" ? "ゲームを検索..." : "Search games..."}
@@ -44,6 +45,7 @@ export function Topnav({
         {/* Language toggle */}
         <div className="flex">
           <button
+            type="button"
             onClick={() => setLocale("en")}
             className={`font-mono text-[14px] tracking-wider px-3 py-1 border transition-all cursor-pointer ${
               locale === "en"
@@ -54,6 +56,7 @@ export function Topnav({
             English
           </button>
           <button
+            type="button"
             onClick={() => setLocale("ja")}
             className={`font-mono text-[14px] tracking-wider px-3 py-1 border-y border-r transition-all cursor-pointer ${
               locale === "ja"

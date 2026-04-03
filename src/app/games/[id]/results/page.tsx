@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { redirect, notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { ResultsContent } from "@/components/feedback/results-content";
 import { requireProfile } from "@/lib/auth/require-profile";
+
+export const metadata: Metadata = { title: "Results" };
 
 export const dynamic = "force-dynamic";
 

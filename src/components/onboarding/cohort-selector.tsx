@@ -61,6 +61,7 @@ export function CohortSelector({
     <div className="space-y-4">
       {COHORTS.map((cohort) => (
         <button
+          type="button"
           key={cohort.id}
           onClick={() => setSelected(cohort.id)}
           className={`w-full p-6 border text-left flex items-center justify-between transition-all cursor-pointer ${
@@ -90,6 +91,7 @@ export function CohortSelector({
       ))}
 
       <button
+        type="button"
         onClick={handleSave}
         disabled={!selected || saving}
         className="w-full bg-white text-black py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-30 cursor-pointer mt-8"

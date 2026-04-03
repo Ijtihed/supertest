@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/app-shell";
 import { LeaderboardContent } from "@/components/leaderboard/leaderboard-content";
 import { requireProfile } from "@/lib/auth/require-profile";
+
+export const metadata: Metadata = { title: "Leaderboard" };
 
 export const dynamic = "force-dynamic";
 

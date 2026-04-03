@@ -142,6 +142,7 @@ export function FeedbackForm({
           {t.feedback.encryptedTransmission}
         </p>
         <button
+          type="button"
           onClick={() => router.push(`/games/${game.id}`)}
           className="border border-outline-variant px-6 py-3 font-mono text-[14px] tracking-widest uppercase text-white hover:bg-white hover:text-black transition-all cursor-pointer"
         >
@@ -173,7 +174,7 @@ export function FeedbackForm({
           </div>
           <div>
             <h2 className="font-headline font-bold text-3xl tracking-tighter text-white uppercase">
-              {isEditing ? "EDIT FEEDBACK" : t.feedback.submitFeedback}
+              {isEditing ? t.feedback.editFeedback : t.feedback.submitFeedback}
             </h2>
             <p className="font-mono text-[14px] tracking-widest uppercase text-muted">
               {game.title}

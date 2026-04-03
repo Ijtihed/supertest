@@ -20,6 +20,7 @@ export default function GlobalError({
           {error.message || "Something went wrong. Please try again."}
         </p>
         <button
+          type="button"
           onClick={reset}
           className="border border-outline-variant px-6 py-3 font-mono text-[14px] tracking-widest uppercase text-white hover:bg-white hover:text-black transition-all cursor-pointer"
         >

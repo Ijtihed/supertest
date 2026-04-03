@@ -2,40 +2,14 @@
 
 import { useApp } from "@/lib/i18n/context";
 import { Footer } from "@/components/layout/footer";
-import Link from "next/link";
+import { MarketingNav } from "@/components/layout/marketing-nav";
 
 export default function SecurityPage() {
-  const { locale, setLocale, t } = useApp();
+  const { locale, t } = useApp();
 
   return (
     <div className="bg-black-absolute text-primary min-h-screen flex flex-col">
-      <nav className="fixed top-0 right-0 left-0 h-14 bg-black-absolute flex justify-between items-center px-6 z-50 border-b border-outline-variant">
-        <Link href="/" className="font-mono font-black text-sm tracking-widest text-primary">
-          {t.brand}
-        </Link>
-        <div className="flex items-center gap-4">
-          <div className="flex">
-            <button
-              type="button"
-              onClick={() => setLocale("en")}
-              className={`font-mono text-[14px] tracking-wider px-3 py-1 border transition-all cursor-pointer ${
-                locale === "en" ? "bg-primary text-on-primary border-primary" : "border-outline-variant text-secondary hover:text-primary"
-              }`}
-            >
-              English
-            </button>
-            <button
-              type="button"
-              onClick={() => setLocale("ja")}
-              className={`font-mono text-[14px] tracking-wider px-3 py-1 border-y border-r transition-all cursor-pointer ${
-                locale === "ja" ? "bg-primary text-on-primary border-primary" : "border-outline-variant text-secondary hover:text-primary"
-              }`}
-            >
-              日本語
-            </button>
-          </div>
-        </div>
-      </nav>
+      <MarketingNav />
 
       <main className="pt-14 flex-1 px-6 md:px-12 py-24 max-w-4xl mx-auto w-full">
         <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tighter mb-4">

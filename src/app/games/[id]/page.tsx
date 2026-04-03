@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { GameDetailContent } from "@/components/games/game-detail-content";
 import { requireProfile } from "@/lib/auth/require-profile";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient();
+  const { data: game } = await supabase.from("games").select("title").eq("id", id).single();
+  return { title: game?.title ?? "Game" };
+}
 
 export default async function GameDetailPage({
   params,

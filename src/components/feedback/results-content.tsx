@@ -159,6 +159,7 @@ export function ResultsContent({
         <div className="flex-1">
           <div className="flex items-center gap-4 mb-6">
             <button
+              type="button"
               onClick={runAiSummary}
               disabled={aiLoading || count === 0}
               className="border border-outline-variant px-4 py-1 font-mono text-[14px] tracking-widest uppercase hover:bg-white hover:text-black transition-all disabled:opacity-50 cursor-pointer"

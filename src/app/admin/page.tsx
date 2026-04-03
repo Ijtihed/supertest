@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/app-shell";
 import { AdminContent } from "@/components/admin/admin-content";
 import { requireAdmin } from "@/lib/auth/require-profile";
+
+export const metadata: Metadata = { title: "Admin" };
 
 export const dynamic = "force-dynamic";
 

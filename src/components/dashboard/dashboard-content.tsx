@@ -59,6 +59,7 @@ export function DashboardContent({
       <div className="flex gap-8 mb-8 border-b border-surface-container">
         {(["games", "reviews"] as const).map((tab) => (
           <button
+            type="button"
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`pb-3 border-b-2 font-mono text-[14px] tracking-widest uppercase transition-colors cursor-pointer ${

@@ -65,6 +65,7 @@ export function BrowseContent({
         <div className="flex items-center gap-3 flex-wrap">
           {PLATFORMS.map((platform) => (
             <button
+              type="button"
               key={platform}
               onClick={() => setActivePlatform(platform)}
               className={`px-3 py-1 font-mono text-[13px] tracking-widest uppercase transition-all cursor-pointer ${
@@ -83,6 +84,7 @@ export function BrowseContent({
           <div className="flex items-center gap-2 flex-wrap">
             {COHORTS.map((c) => (
               <button
+                type="button"
                 key={c.id}
                 onClick={() => setActiveCohort(c.id)}
                 className={`px-3 py-1 font-mono text-[13px] tracking-widest uppercase transition-all cursor-pointer ${
@@ -98,6 +100,7 @@ export function BrowseContent({
           <div className="flex items-center gap-2 flex-wrap">
             {SORTS.map((s) => (
               <button
+                type="button"
                 key={s.id}
                 onClick={() => setActiveSort(s.id)}
                 className={`px-3 py-1 font-mono text-[13px] tracking-widest uppercase transition-all cursor-pointer ${
@@ -208,6 +211,7 @@ export function BrowseContent({
             </p>
             {hasFilters && (
               <button
+                type="button"
                 onClick={() => { setActivePlatform("ALL"); setActiveCohort("ALL"); }}
                 className="border border-outline-variant px-4 py-2 font-mono text-[13px] text-muted hover:text-white hover:border-white transition-all cursor-pointer"
               >

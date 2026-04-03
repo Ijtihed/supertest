@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { OnboardingFlow } from "@/components/onboarding/onboarding-flow";
+
+export const metadata: Metadata = { title: "Onboarding" };
 
 export const dynamic = "force-dynamic";
 

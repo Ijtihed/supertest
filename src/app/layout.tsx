@@ -18,15 +18,28 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Supertest",
-  description: "Playtesting platform for the Supercell AI Lab batch",
+  metadataBase: new URL("https://supertest.vercel.app"),
+  title: {
+    default: "Supertest",
+    template: "%s · Supertest",
+  },
+  description: "Playtesting platform for the Supercell AI Lab batch. Upload your game, get structured feedback from everyone in the cohort.",
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
+    icon: { url: "/favicon.svg", type: "image/svg+xml" },
     apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Supertest",
+    title: "Supertest",
+    description: "Playtesting platform for the Supercell AI Lab batch. Upload your game, get structured feedback from everyone in the cohort.",
+    images: [{ url: "/socialmediaimg.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Supertest",
+    description: "Playtesting platform for the Supercell AI Lab batch.",
+    images: ["/socialmediaimg.png"],
   },
 };
 

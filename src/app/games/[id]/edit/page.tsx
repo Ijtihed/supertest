@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { EditGameForm } from "@/components/games/edit-game-form";
 import { requireProfile } from "@/lib/auth/require-profile";
+
+export const metadata: Metadata = { title: "Edit Build" };
 
 export const dynamic = "force-dynamic";
 

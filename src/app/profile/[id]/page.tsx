@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { ProfilePageContent } from "@/components/profile/profile-page-content";
 import { requireProfile } from "@/lib/auth/require-profile";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient();
+  const { data: profile } = await supabase.from("profiles").select("display_name").eq("id", id).maybeSingle();
+  return { title: profile?.display_name ?? "Profile" };
+}
 
 export default async function ProfilePage({
   params,

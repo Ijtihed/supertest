@@ -2,57 +2,24 @@
 
 import { useSearchParams } from "next/navigation";
 import { Footer } from "@/components/layout/footer";
+import { MarketingNav } from "@/components/layout/marketing-nav";
 import { SignInButton } from "@/components/auth/sign-in-button";
 import { useApp } from "@/lib/i18n/context";
 
 export default function LandingPage() {
-  const { locale, setLocale, t } = useApp();
+  const { t } = useApp();
   const searchParams = useSearchParams();
   const authError = searchParams.get("error") === "auth";
 
   return (
     <div className="bg-black-absolute text-primary min-h-screen flex flex-col">
-      {/* TopNavBar */}
-      <nav className="fixed top-0 right-0 left-0 h-14 bg-black-absolute flex justify-between items-center px-6 z-50 border-b border-outline-variant">
-        <div className="flex items-center gap-8">
-          <span className="font-mono font-black text-sm tracking-widest text-primary">
-            {t.brand}
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="flex">
-            <button
-              type="button"
-              onClick={() => setLocale("en")}
-              className={`font-mono text-[14px] tracking-wider px-3 py-1 border transition-all cursor-pointer ${
-                locale === "en"
-                  ? "bg-primary text-on-primary border-primary"
-                  : "border-outline-variant text-secondary hover:text-primary"
-              }`}
-            >
-              English
-            </button>
-            <button
-              type="button"
-              onClick={() => setLocale("ja")}
-              className={`font-mono text-[14px] tracking-wider px-3 py-1 border-y border-r transition-all cursor-pointer ${
-                locale === "ja"
-                  ? "bg-primary text-on-primary border-primary"
-                  : "border-outline-variant text-secondary hover:text-primary"
-              }`}
-            >
-              日本語
-            </button>
-          </div>
-          <SignInButton variant="link" />
-        </div>
-      </nav>
+      <MarketingNav showSignIn={<SignInButton variant="link" />} />
 
       <main className="pt-14 flex-1">
         {authError && (
           <div className="bg-error/10 border-b border-error/30 px-6 py-3 text-center">
             <p className="font-mono text-[13px] tracking-widest uppercase text-error">
-              Sign in failed — please try again
+              {t.common.authError}
             </p>
           </div>
         )}

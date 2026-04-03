@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/app-shell";
 import { requireProfile } from "@/lib/auth/require-profile";
 import { SettingsContent } from "@/components/settings/settings-content";
+
+export const metadata: Metadata = { title: "Settings" };
 
 export const dynamic = "force-dynamic";
 

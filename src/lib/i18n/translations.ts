@@ -152,6 +152,7 @@ const translations = {
       backToGame: "BACK TO GAME",
       encryptedTransmission: "ENCRYPTED_TRANSMISSION_PROTOCOL_ACTIVE",
       customAnswerPlaceholder: "Your answer...",
+      editFeedback: "EDIT FEEDBACK",
     },
     results: {
       results: "RESULTS",
@@ -214,6 +215,7 @@ const translations = {
       uncategorized: "UNCATEGORIZED",
       unknown: "UNKNOWN",
       na: "N/A",
+      authError: "Sign in failed — please try again",
     },
     footer: {
       license: "MIT LICENSE 2026",
@@ -369,6 +371,7 @@ const translations = {
       backToGame: "ゲームに戻る",
       encryptedTransmission: "暗号化送信プロトコル有効",
       customAnswerPlaceholder: "回答を入力...",
+      editFeedback: "フィードバックを編集",
     },
     results: {
       results: "結果",
@@ -430,6 +433,7 @@ const translations = {
       uncategorized: "未分類",
       unknown: "不明",
       na: "N/A",
+      authError: "ログインに失敗しました — もう一度お試しください",
     },
     footer: {
       license: "MIT LICENSE 2026",

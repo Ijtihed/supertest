@@ -95,6 +95,7 @@ export function SettingsContent({
           <div className="grid grid-cols-3 gap-2">
             {COHORTS.map((c) => (
               <button
+                type="button"
                 key={c.id}
                 onClick={() => handleCohortChange(c.id)}
                 disabled={saving}

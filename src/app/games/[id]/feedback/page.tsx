@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { FeedbackForm } from "@/components/feedback/feedback-form";
 import { requireProfile } from "@/lib/auth/require-profile";
+
+export const metadata: Metadata = { title: "Give Feedback" };
 
 export const dynamic = "force-dynamic";
 
