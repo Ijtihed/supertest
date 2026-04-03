@@ -65,21 +65,11 @@ export function GameCard({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 border-t border-surface-container pt-4">
-          <div>
-            <p className="font-mono text-[13px] text-muted uppercase mb-1">
-              {t.browse.platform}
-            </p>
-            <p className="font-mono text-sm text-white truncate">
-              {platforms.join(", ") || t.common.na}
-            </p>
-          </div>
-          <div>
-            <p className="font-mono text-[13px] text-muted uppercase mb-1">
-              {t.gameDetail.feedback}
-            </p>
-            <p className="font-mono text-sm text-white">{feedbackCount}</p>
-          </div>
+        <div className="border-t border-surface-container pt-4">
+          <p className="font-mono text-[13px] text-muted uppercase mb-1">
+            {t.gameDetail.feedback}
+          </p>
+          <p className="font-mono text-sm text-white">{feedbackCount}</p>
         </div>
       </div>
     </Link>

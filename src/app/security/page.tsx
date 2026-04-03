@@ -200,8 +200,8 @@ export default function SecurityPage() {
           <section className="border border-outline-variant bg-surface-lowest p-8">
             <p className="font-body text-secondary leading-relaxed">
               {locale === "ja"
-                ? "このプラットフォームはSupercell AI Labコーホート内での内部テスト用に設計されています。高度に機密性のあるデータのアップロードは避けてください。懸念やバグを発見した場合は、Slackで @Ijtihedk にDMしてください。"
-                : "This platform is designed for internal testing within the Supercell AI Lab cohort. Avoid uploading highly sensitive data. If you find a concern or a bug, DM @Ijtihedk on Slack."}
+                ? "このプラットフォームはSupercell AI Labコーホート内での内部テスト用に設計されています。高度に機密性のあるデータのアップロードは避けてください。懸念やバグを発見した場合は、Slackで @ijtihedk にDMしてください。"
+                : "This platform is designed for internal testing within the Supercell AI Lab cohort. Avoid uploading highly sensitive data. If you find a concern or a bug, DM @ijtihedk on Slack."}
             </p>
           </section>
         </div>

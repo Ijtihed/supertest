@@ -129,14 +129,6 @@ export function GameDetailContent({
             <span className="px-2 py-0.5 border border-white font-mono text-[13px] tracking-widest text-white uppercase">
               {game.game_type}
             </span>
-            {game.platforms.map((p) => (
-              <span
-                key={p}
-                className="px-2 py-0.5 border border-outline-variant font-mono text-[13px] tracking-widest text-secondary uppercase"
-              >
-                {p}
-              </span>
-            ))}
           </div>
         </div>
       </div>
@@ -149,14 +141,6 @@ export function GameDetailContent({
           </span>
           <span className="font-mono text-xs text-white uppercase font-bold">
             {game.profiles?.display_name ?? t.common.unknown}
-          </span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-mono text-[13px] text-muted uppercase tracking-widest mb-1">
-            {t.gameDetail.genre}
-          </span>
-          <span className="font-mono text-xs text-white uppercase font-bold">
-            {game.genres.join(" / ") || t.common.na}
           </span>
         </div>
         <div className="flex flex-col">
