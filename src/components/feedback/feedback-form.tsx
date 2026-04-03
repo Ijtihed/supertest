@@ -8,29 +8,35 @@ import { useToast } from "@/lib/toast/context";
 import type {
   Game,
   FeedbackQuestion,
+  FeedbackResponse,
   PlayAgain,
 } from "@/lib/types/database";
 
 export function FeedbackForm({
   game,
   questions,
+  existingFeedback,
 }: {
   game: Game;
   questions: FeedbackQuestion[];
+  existingFeedback?: FeedbackResponse;
 }) {
+  const isEditing = !!existingFeedback;
   const { t } = useApp();
   const { addToast } = useToast();
   const router = useRouter();
-  const [overallRating, setOverallRating] = useState(0);
-  const [gameplayRating, setGameplayRating] = useState(0);
-  const [visualsRating, setVisualsRating] = useState(0);
-  const [funFactorRating, setFunFactorRating] = useState(0);
-  const [bugsEncountered, setBugsEncountered] = useState("");
-  const [wouldPlayAgain, setWouldPlayAgain] = useState<PlayAgain>("maybe");
-  const [videoLinks, setVideoLinks] = useState<string[]>([""]);
-  const [freeText, setFreeText] = useState("");
+  const [overallRating, setOverallRating] = useState(existingFeedback?.overall_rating ?? 0);
+  const [gameplayRating, setGameplayRating] = useState(existingFeedback?.gameplay_rating ?? 0);
+  const [visualsRating, setVisualsRating] = useState(existingFeedback?.visuals_rating ?? 0);
+  const [funFactorRating, setFunFactorRating] = useState(existingFeedback?.fun_factor_rating ?? 0);
+  const [bugsEncountered, setBugsEncountered] = useState(existingFeedback?.bugs_encountered ?? "");
+  const [wouldPlayAgain, setWouldPlayAgain] = useState<PlayAgain>(existingFeedback?.would_play_again ?? "maybe");
+  const [videoLinks, setVideoLinks] = useState<string[]>(
+    existingFeedback?.video_links?.length ? existingFeedback.video_links : [""]
+  );
+  const [freeText, setFreeText] = useState(existingFeedback?.free_text ?? "");
   const [customAnswers, setCustomAnswers] = useState<Record<string, string>>(
-    {}
+    (existingFeedback?.custom_answers as Record<string, string>) ?? {}
   );
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -71,9 +77,7 @@ export function FeedbackForm({
       } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("feedback_responses").insert({
-        game_id: game.id,
-        reviewer_id: user.id,
+      const payload = {
         overall_rating: overallRating,
         gameplay_rating: gameplayRating || null,
         visuals_rating: visualsRating || null,
@@ -83,28 +87,37 @@ export function FeedbackForm({
         free_text: freeText || null,
         video_links: videoLinks.filter((l) => l.trim()),
         custom_answers: customAnswers,
-      });
+      };
+
+      const { error } = isEditing
+        ? await supabase
+            .from("feedback_responses")
+            .update(payload)
+            .eq("id", existingFeedback!.id)
+        : await supabase
+            .from("feedback_responses")
+            .insert({ ...payload, game_id: game.id, reviewer_id: user.id });
 
       if (error) {
-        if (error.code === "23505") {
-          addToast("You've already reviewed this game", "error");
-        } else {
-          addToast("Failed to submit feedback", "error");
-        }
+        addToast("Failed to submit feedback", "error");
         return;
       }
 
-      const { data: p } = await supabase
-        .from("profiles")
-        .select("review_points")
-        .eq("id", user.id)
-        .single();
-      if (p) {
-        const { error: pointsError } = await supabase
+      if (!isEditing) {
+        const { data: p } = await supabase
           .from("profiles")
-          .update({ review_points: (p.review_points ?? 0) + 10 })
-          .eq("id", user.id);
-        if (!pointsError) addToast("+10 points!", "success");
+          .select("review_points")
+          .eq("id", user.id)
+          .single();
+        if (p) {
+          const { error: pointsError } = await supabase
+            .from("profiles")
+            .update({ review_points: (p.review_points ?? 0) + 10 })
+            .eq("id", user.id);
+          if (!pointsError) addToast("+10 points!", "success");
+        }
+      } else {
+        addToast("Feedback updated", "success");
       }
 
       setSubmitted(true);
@@ -160,7 +173,7 @@ export function FeedbackForm({
           </div>
           <div>
             <h2 className="font-headline font-bold text-3xl tracking-tighter text-white uppercase">
-              {t.feedback.submitFeedback}
+              {isEditing ? "EDIT FEEDBACK" : t.feedback.submitFeedback}
             </h2>
             <p className="font-mono text-[14px] tracking-widest uppercase text-muted">
               {game.title}

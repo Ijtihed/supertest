@@ -18,12 +18,14 @@ export function GameDetailContent({
   feedbackCount,
   avgRating,
   isOwner,
+  hasReviewed = false,
   collaborators = [],
 }: {
   game: GameWithProfile;
   feedbackCount: number;
   avgRating: string;
   isOwner: boolean;
+  hasReviewed?: boolean;
   collaborators?: { id: string; display_name: string; avatar_url: string | null }[];
 }) {
   const { t, locale } = useApp();
@@ -547,12 +549,21 @@ export function GameDetailContent({
                     </div>
                   )}
                   {!isPaused && (
-                    <Link
-                      href={`/games/${game.id}/feedback`}
-                      className="w-full bg-white text-black py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-transparent hover:text-white border border-white transition-all block text-center"
-                    >
-                      {t.gameDetail.giveFeedback}
-                    </Link>
+                    hasReviewed ? (
+                      <Link
+                        href={`/games/${game.id}/feedback`}
+                        className="w-full border border-outline-variant py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase text-white hover:border-white transition-all block text-center"
+                      >
+                        EDIT FEEDBACK
+                      </Link>
+                    ) : (
+                      <Link
+                        href={`/games/${game.id}/feedback`}
+                        className="w-full bg-white text-black py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-transparent hover:text-white border border-white transition-all block text-center"
+                      >
+                        {t.gameDetail.giveFeedback}
+                      </Link>
+                    )
                   )}
                 </>
               )}

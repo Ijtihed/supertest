@@ -36,6 +36,15 @@ export default async function GameDetailPage({
       : "0.0";
   const isOwner = user.id === game.owner_id;
 
+  const { data: existingReview } = await supabase
+    .from("feedback_responses")
+    .select("id")
+    .eq("game_id", id)
+    .eq("reviewer_id", user.id)
+    .maybeSingle();
+
+  const hasReviewed = !!existingReview;
+
   let collaborators: { id: string; display_name: string; avatar_url: string | null }[] = [];
   if (game.collaborator_ids?.length > 0) {
     const { data } = await supabase
@@ -52,6 +61,7 @@ export default async function GameDetailPage({
         feedbackCount={feedbackCount}
         avgRating={avgRating}
         isOwner={isOwner}
+        hasReviewed={hasReviewed}
         collaborators={collaborators}
       />
     </AppShell>

@@ -20,17 +20,15 @@ export default async function FeedbackPage({
     .single();
 
   if (!game) notFound();
-
   if (game.owner_id === user.id) redirect(`/games/${id}`);
   if (game.status === "paused") redirect(`/games/${id}`);
 
   const { data: existing } = await supabase
     .from("feedback_responses")
-    .select("id")
+    .select("*")
     .eq("game_id", id)
     .eq("reviewer_id", user.id)
     .maybeSingle();
-  if (existing) redirect(`/games/${id}`);
 
   const { data: questions } = await supabase
     .from("feedback_questions")
@@ -40,7 +38,11 @@ export default async function FeedbackPage({
 
   return (
     <AppShell profile={profile} topnavTitle="FEEDBACK">
-      <FeedbackForm game={game} questions={questions ?? []} />
+      <FeedbackForm
+        game={game}
+        questions={questions ?? []}
+        existingFeedback={existing ?? undefined}
+      />
     </AppShell>
   );
 }
