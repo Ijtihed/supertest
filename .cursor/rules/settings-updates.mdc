@@ -1,0 +1,25 @@
+---
+description: Keep the Updates section in settings current after meaningful commits
+globs: src/components/settings/settings-content.tsx
+alwaysApply: false
+---
+
+# Settings Updates Section
+
+The `UPDATES` array at the top of `settings-content.tsx` is a static changelog shown to users at the bottom of the Settings page.
+
+## When to update it
+
+After any meaningful feature commit (not fixes, lint, or test-only commits), prepend a new entry:
+
+```ts
+{ date: "MMM D", note: "Short plain-English description of the change" },
+```
+
+## Rules
+
+- Keep notes under ~80 chars, no technical jargon
+- Date format: `"Apr 3"` (no year)
+- Most recent entry goes first
+- Skip: fix commits, lint/test-only commits, config/tooling changes
+- Include: new features, UI changes, admin tools, UX improvements

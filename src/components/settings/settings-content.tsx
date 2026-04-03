@@ -6,6 +6,16 @@ import { createClient } from "@/lib/supabase/client";
 import { useApp } from "@/lib/i18n/context";
 import type { Profile, Cohort } from "@/lib/types/database";
 
+const UPDATES: { date: string; note: string }[] = [
+  { date: "Apr 3", note: "Feedback editing — pre-fill existing review, no double points" },
+  { date: "Apr 3", note: "Admin — game builds section with delete capability" },
+  { date: "Apr 3", note: "Collaborators — searchable picker on game form, team shown on detail" },
+  { date: "Apr 3", note: "Multiplayer badge on browse cards" },
+  { date: "Apr 3", note: "Live session — GO LIVE button, LIVE badge, join link for multiplayer games" },
+  { date: "Apr 3", note: "Color images for active games, grayscale for paused" },
+  { date: "Apr 3", note: "Platforms restored to filters, cards, detail, and game form" },
+];
+
 const COHORTS: { id: Cohort; label: string }[] = [
   { id: "helsinki", label: "Helsinki" },
   { id: "san_francisco", label: "San Francisco" },
@@ -158,6 +168,25 @@ export function SettingsContent({
             {t.settings.signOut}
           </button>
         </form>
+
+        {/* Updates */}
+        <div className="pt-4">
+          <label className="font-mono text-[14px] tracking-widest text-muted uppercase block mb-6">
+            Updates
+          </label>
+          <div className="space-y-4">
+            {UPDATES.map((update, i) => (
+              <div key={i} className="flex gap-4">
+                <span className="font-mono text-[12px] text-muted shrink-0 pt-0.5">
+                  {update.date}
+                </span>
+                <span className="font-mono text-[13px] text-primary/70">
+                  {update.note}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
