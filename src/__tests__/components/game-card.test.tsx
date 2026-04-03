@@ -17,6 +17,8 @@ const mockGame: Game = {
   visibility: "public",
   invite_code: "abc123",
   status: "active",
+  is_live: false,
+  live_session_url: null,
   created_at: "2025-01-01T00:00:00Z",
 };
 
