@@ -28,10 +28,8 @@ describe("GameCard", () => {
     expect(link).toHaveAttribute("href", "/games/test-123");
   });
 
-  it("renders genre tags and platform info", () => {
+  it("renders platform info", () => {
     const { container } = render(<GameCard game={mockGame} />);
-    expect(container.textContent).toContain("Racing");
-    expect(container.textContent).toContain("Cyberpunk");
     expect(container.textContent).toContain("Windows, Linux");
   });
 

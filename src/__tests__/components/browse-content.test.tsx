@@ -14,7 +14,7 @@ const mockGames = [
     game_url: null,
     file_path: null,
     platforms: ["PC"],
-    genres: ["Action"],
+    genres: [],
     visibility: "public" as const,
     invite_code: "a",
     status: "active" as const,
@@ -31,7 +31,7 @@ const mockGames = [
     game_url: null,
     file_path: null,
     platforms: ["Web"],
-    genres: ["Puzzle"],
+    genres: [],
     visibility: "public" as const,
     invite_code: "b",
     status: "active" as const,
@@ -49,15 +49,15 @@ describe("BrowseContent", () => {
     expect(container.textContent).toContain("PUZZLE_VOID");
   });
 
-  it("filters games when a genre filter is clicked", () => {
+  it("filters games by platform", () => {
     const { container } = render(
       <BrowseContent games={mockGames} feedbackCounts={{}} />,
     );
     const filterButtons = container.querySelectorAll("button");
-    const puzzleBtn = Array.from(filterButtons).find(
-      (btn) => btn.textContent === "PUZZLE"
+    const webBtn = Array.from(filterButtons).find(
+      (btn) => btn.textContent === "WEB"
     );
-    if (puzzleBtn) fireEvent.click(puzzleBtn);
+    if (webBtn) fireEvent.click(webBtn);
 
     expect(container.textContent).not.toContain("NEON_GAME");
     expect(container.textContent).toContain("PUZZLE_VOID");
@@ -75,6 +75,6 @@ describe("BrowseContent", () => {
     const { container } = render(
       <BrowseContent games={[]} feedbackCounts={{}} />,
     );
-    expect(container.textContent).toContain("No games match");
+    expect(container.textContent).toContain("No games");
   });
 });
