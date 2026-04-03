@@ -19,7 +19,7 @@ const mockGames = [
     invite_code: "a",
     status: "active" as const, is_live: false, live_session_url: null, collaborator_ids: [],
     created_at: "2025-01-01T00:00:00Z",
-    profiles: { display_name: "Dev1", avatar_url: null },
+    profiles: { display_name: "Dev1", avatar_url: null, cohort: null },
   },
   {
     id: "2",
@@ -36,7 +36,7 @@ const mockGames = [
     invite_code: "b",
     status: "active" as const, is_live: false, live_session_url: null, collaborator_ids: [],
     created_at: "2025-01-02T00:00:00Z",
-    profiles: { display_name: "Dev2", avatar_url: null },
+    profiles: { display_name: "Dev2", avatar_url: null, cohort: null },
   },
 ];
 
