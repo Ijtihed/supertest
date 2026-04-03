@@ -21,11 +21,10 @@ export function CollaboratorPicker({
   const [expanded, setExpanded] = useState(false);
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState<UserOption[]>([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!expanded || users.length > 0) return;
-    setLoading(true);
+    let cancelled = false;
     const supabase = createClient();
     supabase
       .from("profiles")
@@ -33,11 +32,12 @@ export function CollaboratorPicker({
       .eq("status", "approved")
       .order("display_name")
       .then(({ data }) => {
+        if (cancelled) return;
         setUsers(
           (data ?? []).filter((u) => u.id !== excludeUserId) as UserOption[]
         );
-        setLoading(false);
       });
+    return () => { cancelled = true; };
   }, [expanded, users.length, excludeUserId]);
 
   const filtered = users.filter((u) =>
@@ -101,10 +101,10 @@ export function CollaboratorPicker({
 
           {/* User list */}
           <div className="max-h-48 overflow-y-auto space-y-1">
-            {loading && (
+            {users.length === 0 && expanded && (
               <p className="font-mono text-[13px] text-muted py-2">Loading...</p>
             )}
-            {!loading && filtered.length === 0 && (
+            {users.length > 0 && filtered.length === 0 && (
               <p className="font-mono text-[13px] text-muted py-2">No users found</p>
             )}
             {filtered.map((u) => {

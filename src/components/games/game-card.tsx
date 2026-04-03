@@ -13,8 +13,6 @@ export function GameCard({
 }) {
   const { t } = useApp();
   const title = game.title?.trim() || "Untitled";
-  const genres = game.genres ?? [];
-  const platforms = game.platforms ?? [];
 
   return (
     <Link

@@ -15,14 +15,6 @@ interface CustomQuestion {
   options?: string[];
 }
 
-const GENRE_OPTIONS = [
-  "Action", "Adventure", "RPG", "Strategy", "Puzzle",
-  "Horror", "Survival", "Sandbox", "Platformer", "Simulation",
-  "Racing", "Fighting", "Shooter", "Stealth", "Roguelike",
-  "Metroidvania", "Visual Novel", "Rhythm", "Tower Defense",
-  "Card Game", "Sports", "Casual", "Narrative", "Co-op",
-  "Battle Royale", "Open World", "Souls-like", "Idle/Clicker",
-];
 const PLATFORM_OPTIONS = ["Windows", "Mac", "Linux", "Web", "Mobile", "Console"];
 
 const PRESET_QUESTIONS_EN: CustomQuestion[] = [
@@ -54,7 +46,7 @@ export function NewGameForm() {
   const [gameType, setGameType] = useState<GameType>("link");
   const [gameUrl, setGameUrl] = useState("");
   const [platforms, setPlatforms] = useState<string[]>([]);
-  const [genres, setGenres] = useState<string[]>([]);
+  const [genres] = useState<string[]>([]);
   const [visibility, setVisibility] = useState<Visibility>("public");
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [collaboratorIds, setCollaboratorIds] = useState<string[]>([]);

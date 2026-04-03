@@ -19,15 +19,6 @@ interface CustomQuestion {
   options?: string[];
 }
 
-const GENRE_OPTIONS = [
-  "Action", "Adventure", "RPG", "Strategy", "Puzzle",
-  "Horror", "Survival", "Sandbox", "Platformer", "Simulation",
-  "Racing", "Fighting", "Shooter", "Stealth", "Roguelike",
-  "Metroidvania", "Visual Novel", "Rhythm", "Tower Defense",
-  "Card Game", "Sports", "Casual", "Narrative", "Co-op",
-  "Battle Royale", "Open World", "Souls-like", "Idle/Clicker",
-];
-const PLATFORM_OPTIONS = ["Windows", "Mac", "Linux", "Web", "Mobile", "Console"];
 
 function mapRowsToCustom(questions: FeedbackQuestion[]): CustomQuestion[] {
   return [...questions]
@@ -58,8 +49,8 @@ export function EditGameForm({
   const [description, setDescription] = useState(game.description);
   const [gameType, setGameType] = useState<GameType>(game.game_type);
   const [gameUrl, setGameUrl] = useState(game.game_url ?? "");
-  const [platforms, setPlatforms] = useState<string[]>(game.platforms);
-  const [genres, setGenres] = useState<string[]>(game.genres);
+  const [platforms] = useState<string[]>(game.platforms);
+  const [genres] = useState<string[]>(game.genres);
   const [visibility, setVisibility] = useState<Visibility>(game.visibility);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [customQuestions, setCustomQuestions] =
@@ -78,10 +69,6 @@ export function EditGameForm({
   }, [coverPreviewUrl]);
 
   const coverPreview = coverPreviewUrl ?? game.cover_image_url;
-
-  function toggleArrayItem(arr: string[], item: string) {
-    return arr.includes(item) ? arr.filter((i) => i !== item) : [...arr, item];
-  }
 
   function addQuestion() {
     setCustomQuestions((prev) => [
