@@ -5,9 +5,21 @@ import Link from "next/link";
 import type { Game, Profile } from "@/lib/types/database";
 import { useApp } from "@/lib/i18n/context";
 
-type GameWithProfile = Game & { profiles: Pick<Profile, "display_name" | "avatar_url"> };
+type GameWithProfile = Game & { profiles: Pick<Profile, "display_name" | "avatar_url" | "cohort"> };
 
 const PLATFORMS = ["ALL", "PC", "WEB", "MOBILE", "CONSOLE"];
+const COHORTS = [
+  { id: "ALL", label: "All" },
+  { id: "helsinki", label: "Helsinki" },
+  { id: "san_francisco", label: "SF" },
+  { id: "tokyo", label: "Tokyo" },
+];
+const SORTS = [
+  { id: "newest", label: "Newest" },
+  { id: "oldest", label: "Oldest" },
+  { id: "most", label: "Most Reviews" },
+  { id: "least", label: "Least Reviews" },
+];
 
 export function BrowseContent({
   games,
@@ -18,16 +30,33 @@ export function BrowseContent({
 }) {
   const { t } = useApp();
   const [activePlatform, setActivePlatform] = useState("ALL");
+  const [activeCohort, setActiveCohort] = useState("ALL");
+  const [activeSort, setActiveSort] = useState("newest");
 
-  const filtered = games.filter((game) => {
-    if (activePlatform === "ALL") return true;
-    return (game.platforms ?? []).some((p) => p.toUpperCase().includes(activePlatform));
-  });
+  const filtered = games
+    .filter((game) => {
+      if (activePlatform !== "ALL") {
+        if (!(game.platforms ?? []).some((p) => p.toUpperCase().includes(activePlatform))) return false;
+      }
+      if (activeCohort !== "ALL") {
+        if (game.profiles?.cohort !== activeCohort) return false;
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      if (activeSort === "oldest") return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+      if (activeSort === "most") return (feedbackCounts[b.id] ?? 0) - (feedbackCounts[a.id] ?? 0);
+      if (activeSort === "least") return (feedbackCounts[a.id] ?? 0) - (feedbackCounts[b.id] ?? 0);
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
+
+  const hasFilters = activePlatform !== "ALL" || activeCohort !== "ALL";
 
   return (
     <>
-      {/* Platform Filter */}
-      <div className="flex items-center mb-8 pb-4 border-b border-outline-variant/30">
+      {/* Filters */}
+      <div className="mb-8 pb-4 border-b border-outline-variant/30 space-y-3">
+        {/* Platform */}
         <div className="flex items-center gap-3 flex-wrap">
           {PLATFORMS.map((platform) => (
             <button
@@ -42,6 +71,40 @@ export function BrowseContent({
               {platform === "ALL" ? t.browse.allGenres : platform}
             </button>
           ))}
+        </div>
+
+        {/* Cohort + Sort */}
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            {COHORTS.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setActiveCohort(c.id)}
+                className={`px-3 py-1 font-mono text-[13px] tracking-widest uppercase transition-all cursor-pointer ${
+                  activeCohort === c.id
+                    ? "bg-white text-black"
+                    : "border border-outline-variant text-secondary hover:border-white hover:text-white"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-2 flex-wrap">
+            {SORTS.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => setActiveSort(s.id)}
+                className={`px-3 py-1 font-mono text-[13px] tracking-widest uppercase transition-all cursor-pointer ${
+                  activeSort === s.id
+                    ? "border border-white text-white"
+                    : "text-muted hover:text-white"
+                }`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -138,12 +201,14 @@ export function BrowseContent({
             <p className="font-mono text-[14px] text-muted mb-4">
               {t.browse.noGamesMatchFilters ?? "No games match your filters"}
             </p>
-            <button
-              onClick={() => setActivePlatform("ALL")}
-              className="border border-outline-variant px-4 py-2 font-mono text-[13px] text-muted hover:text-white hover:border-white transition-all cursor-pointer"
-            >
-              {t.browse.clearFilters ?? "Clear filters"}
-            </button>
+            {hasFilters && (
+              <button
+                onClick={() => { setActivePlatform("ALL"); setActiveCohort("ALL"); }}
+                className="border border-outline-variant px-4 py-2 font-mono text-[13px] text-muted hover:text-white hover:border-white transition-all cursor-pointer"
+              >
+                {t.browse.clearFilters ?? "Clear filters"}
+              </button>
+            )}
           </div>
         )}
       </div>

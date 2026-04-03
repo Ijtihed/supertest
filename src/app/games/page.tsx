@@ -9,7 +9,7 @@ export default async function BrowseGamesPage() {
 
   const { data: games } = await supabase
     .from("games")
-    .select("*, profiles(display_name, avatar_url)")
+    .select("*, profiles(display_name, avatar_url, cohort)")
     .eq("visibility", "public")
     .eq("status", "active")
     .order("created_at", { ascending: false });
