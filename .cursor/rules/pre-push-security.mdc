@@ -1,0 +1,46 @@
+---
+description: Security check before every git push - scan for secrets, keys, and sensitive data
+alwaysApply: true
+---
+
+# Pre-Push Security Check
+
+Before EVERY git commit or push, you MUST run these checks. No exceptions.
+
+## Required Checks
+
+1. **Scan for secrets in staged files:**
+   - API keys (patterns: `eyJ`, `sk_`, `pk_`, `sb_secret`, `sb_publishable`)
+   - Supabase URLs with real project IDs
+   - Passwords, tokens, credentials
+   - Private keys or certificates
+   - User IDs (UUIDs that identify specific people)
+
+2. **Verify .env.local is NOT staged:**
+   - Run `git status` and confirm `.env.local` is not in the staged files
+   - Only `.env.local.example` (with placeholder values) should be committed
+
+3. **Verify stitch/ and web/ folders are NOT staged:**
+   - These contain local design assets and should stay gitignored
+
+4. **Scan SQL migration files** for hardcoded user IDs — use `YOUR_USER_ID_HERE` placeholder instead
+
+## How to Check
+
+```bash
+# Scan staged files for secrets
+git diff --cached --name-only | xargs grep -l "eyJ\|sk_\|sb_secret\|password\|private_key" 2>/dev/null
+
+# Verify .env.local is not staged
+git status --short | grep ".env.local$"
+
+# Scan for UUIDs that look like user IDs in SQL files
+grep -r "[0-9a-f]\{8\}-[0-9a-f]\{4\}-[0-9a-f]\{4\}-[0-9a-f]\{4\}-[0-9a-f]\{12\}" supabase/ --include="*.sql"
+```
+
+## If Any Check Fails
+
+- STOP. Do not push.
+- Remove the sensitive data from the file.
+- If it was already committed, amend the commit before pushing.
+- Warn the user about what was found.
