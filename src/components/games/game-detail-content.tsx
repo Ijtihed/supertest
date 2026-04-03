@@ -129,6 +129,14 @@ export function GameDetailContent({
             <span className="px-2 py-0.5 border border-white font-mono text-[13px] tracking-widest text-white uppercase">
               {game.game_type}
             </span>
+            {(game.platforms ?? []).map((p) => (
+              <span
+                key={p}
+                className="px-2 py-0.5 border border-outline-variant font-mono text-[13px] tracking-widest text-secondary uppercase"
+              >
+                {p}
+              </span>
+            ))}
           </div>
         </div>
       </div>

@@ -277,6 +277,22 @@ export function NewGameForm() {
             </p>
           </div>
 
+          {/* Platforms */}
+          <div className="flex flex-col gap-4">
+            <label className="font-mono text-[14px] tracking-widest text-muted uppercase">{t.newGame.targetArchitectures}</label>
+            <div className="flex flex-wrap gap-2">
+              {PLATFORM_OPTIONS.map((p) => (
+                <button key={p} type="button" onClick={() => setPlatforms(toggleArrayItem(platforms, p))}
+                  className={`px-4 py-2 border font-mono text-[14px] uppercase transition-all cursor-pointer ${
+                    platforms.includes(p) ? "border-primary text-white" : "border-outline-variant text-muted hover:border-secondary hover:text-secondary"
+                  }`}
+                >{p}</button>
+              ))}
+            </div>
+          </div>
+
+          <div className="h-px w-full bg-outline-variant" />
+
           {/* Visibility */}
           <div className="flex flex-col gap-4">
             <label className="font-mono text-[14px] tracking-widest text-muted uppercase">{t.newGame.visibility}</label>

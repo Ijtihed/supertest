@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import type { Game, Profile } from "@/lib/types/database";
 import { useApp } from "@/lib/i18n/context";
 
 type GameWithProfile = Game & { profiles: Pick<Profile, "display_name" | "avatar_url"> };
+
+const PLATFORMS = ["ALL", "PC", "WEB", "MOBILE", "CONSOLE"];
 
 export function BrowseContent({
   games,
@@ -14,12 +17,37 @@ export function BrowseContent({
   feedbackCounts: Record<string, number>;
 }) {
   const { t } = useApp();
+  const [activePlatform, setActivePlatform] = useState("ALL");
+
+  const filtered = games.filter((game) => {
+    if (activePlatform === "ALL") return true;
+    return (game.platforms ?? []).some((p) => p.toUpperCase().includes(activePlatform));
+  });
 
   return (
     <>
+      {/* Platform Filter */}
+      <div className="flex items-center mb-8 pb-4 border-b border-outline-variant/30">
+        <div className="flex items-center gap-3 flex-wrap">
+          {PLATFORMS.map((platform) => (
+            <button
+              key={platform}
+              onClick={() => setActivePlatform(platform)}
+              className={`px-3 py-1 font-mono text-[13px] tracking-widest uppercase transition-all cursor-pointer ${
+                activePlatform === platform
+                  ? "bg-white text-black"
+                  : "border border-outline-variant text-secondary hover:border-white hover:text-white"
+              }`}
+            >
+              {platform === "ALL" ? t.browse.allGenres : platform}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Game Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {games.map((game) => (
+        {filtered.map((game) => (
           <Link
             key={game.id}
             href={`/games/${game.id}`}
@@ -53,13 +81,23 @@ export function BrowseContent({
                 </h3>
               </div>
 
-              <div className="border-t border-outline-variant/30 pt-4 mb-6">
-                <p className="font-mono text-[13px] text-muted uppercase mb-1">
-                  {t.gameDetail.feedback}
-                </p>
-                <p className="font-mono text-sm text-white">
-                  {feedbackCounts[game.id] ?? 0}
-                </p>
+              <div className="grid grid-cols-2 gap-4 border-t border-outline-variant/30 pt-4 mb-6">
+                <div>
+                  <p className="font-mono text-[13px] text-muted uppercase mb-1">
+                    {t.browse.platform}
+                  </p>
+                  <p className="font-mono text-sm text-white">
+                    {(game.platforms ?? []).join(", ") || t.common.na}
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono text-[13px] text-muted uppercase mb-1">
+                    {t.gameDetail.feedback}
+                  </p>
+                  <p className="font-mono text-sm text-white">
+                    {feedbackCounts[game.id] ?? 0}
+                  </p>
+                </div>
               </div>
 
               <div className="flex items-center gap-3 pt-4 border-t border-outline-variant/30">
@@ -87,14 +125,20 @@ export function BrowseContent({
           </Link>
         ))}
 
-        {games.length === 0 && (
+        {filtered.length === 0 && (
           <div className="col-span-full flex flex-col items-center justify-center py-20">
             <span className="material-symbols-outlined text-4xl text-muted mb-4">
               search_off
             </span>
-            <p className="font-mono text-[14px] text-muted">
-              {t.browse.noGamesMatchFilters ?? "No games yet"}
+            <p className="font-mono text-[14px] text-muted mb-4">
+              {t.browse.noGamesMatchFilters ?? "No games match your filters"}
             </p>
+            <button
+              onClick={() => setActivePlatform("ALL")}
+              className="border border-outline-variant px-4 py-2 font-mono text-[13px] text-muted hover:text-white hover:border-white transition-all cursor-pointer"
+            >
+              {t.browse.clearFilters ?? "Clear filters"}
+            </button>
           </div>
         )}
       </div>
