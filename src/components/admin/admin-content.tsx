@@ -51,15 +51,12 @@ export function AdminContent({
     setBusyId(userId);
     try {
       const supabase = createClient();
-      const { error, count } = await supabase
+      const { error } = await supabase
         .from("profiles")
         .update({ status })
-        .eq("id", userId)
-        .select();
+        .eq("id", userId);
       if (error) {
         addToast(`Failed: ${error.message}`, "error");
-      } else if (!count || count === 0) {
-        addToast("Update failed - check admin RLS policy in Supabase", "error");
       } else {
         addToast(`User ${status}`, "success");
         router.refresh();
