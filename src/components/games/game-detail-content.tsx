@@ -32,6 +32,9 @@ export function GameDetailContent({
   const [showDisableForm, setShowDisableForm] = useState(false);
   const [disableRedirect, setDisableRedirect] = useState("");
   const [disableSubmitting, setDisableSubmitting] = useState(false);
+  const [showLiveForm, setShowLiveForm] = useState(false);
+  const [liveUrl, setLiveUrl] = useState("");
+  const [liveSubmitting, setLiveSubmitting] = useState(false);
 
   const isPaused = game.status === "paused";
   const hideHowToPlayForVisitor = isPaused && !isOwner;
@@ -87,6 +90,40 @@ export function GameDetailContent({
     }
   }
 
+  async function goLive() {
+    setLiveSubmitting(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from("games")
+        .update({ is_live: true, live_session_url: liveUrl.trim() || null })
+        .eq("id", game.id);
+      if (error) return;
+      setShowLiveForm(false);
+      setLiveUrl("");
+      addToast("Session is LIVE", "success");
+      router.refresh();
+    } finally {
+      setLiveSubmitting(false);
+    }
+  }
+
+  async function endLive() {
+    setLiveSubmitting(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from("games")
+        .update({ is_live: false, live_session_url: null })
+        .eq("id", game.id);
+      if (error) return;
+      addToast("Session ended", "success");
+      router.refresh();
+    } finally {
+      setLiveSubmitting(false);
+    }
+  }
+
   async function reEnableBuild() {
     setDisableSubmitting(true);
     try {
@@ -125,7 +162,12 @@ export function GameDetailContent({
           <h2 className="font-headline text-5xl font-extrabold tracking-tighter uppercase mb-2">
             {game.title}
           </h2>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
+            {game.is_live && (
+              <span className="px-3 py-1 bg-red-600 text-white font-mono text-[13px] font-bold tracking-widest uppercase animate-pulse">
+                LIVE
+              </span>
+            )}
             <span className="px-2 py-0.5 border border-white font-mono text-[13px] tracking-widest text-white uppercase">
               {game.game_type}
             </span>
@@ -356,6 +398,79 @@ export function GameDetailContent({
                         {t.gameDetail.disableBuild}
                       </button>
                     )}
+                  {/* Live Session Controls */}
+                  <div className="pt-6 border-t border-outline-variant mt-6">
+                    {game.is_live ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                          <span className="font-mono text-[14px] text-white font-bold tracking-widest">LIVE SESSION</span>
+                        </div>
+                        {game.live_session_url && (
+                          <p className="font-mono text-[13px] text-secondary break-all leading-relaxed">{game.live_session_url}</p>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const url = `${inviteOrigin}/games/${game.id}`;
+                            navigator.clipboard.writeText(url);
+                            addToast("Live link copied", "success");
+                          }}
+                          className="w-full border border-outline-variant py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase text-white hover:border-white transition-all cursor-pointer"
+                        >
+                          COPY LIVE LINK
+                        </button>
+                        <button
+                          type="button"
+                          disabled={liveSubmitting}
+                          onClick={endLive}
+                          className="w-full border border-error/50 py-3 font-mono text-[13px] font-bold tracking-[0.15em] uppercase text-error hover:bg-error/10 transition-all disabled:opacity-50 cursor-pointer"
+                        >
+                          END SESSION
+                        </button>
+                      </div>
+                    ) : showLiveForm ? (
+                      <div className="space-y-3">
+                        <label className="block">
+                          <span className="font-mono text-[13px] text-muted uppercase tracking-widest block mb-2">
+                            Session link (optional)
+                          </span>
+                          <input
+                            type="url"
+                            value={liveUrl}
+                            onChange={(e) => setLiveUrl(e.target.value)}
+                            placeholder="Discord, Steam lobby, or game server link..."
+                            className="w-full bg-background border border-outline-variant px-3 py-2.5 font-mono text-[13px] text-white placeholder:text-muted focus:outline-none focus:border-white/40"
+                          />
+                        </label>
+                        <button
+                          type="button"
+                          disabled={liveSubmitting}
+                          onClick={goLive}
+                          className="w-full bg-red-600 text-white py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-red-700 transition-all disabled:opacity-50 cursor-pointer"
+                        >
+                          {liveSubmitting ? "..." : "GO LIVE"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => { setShowLiveForm(false); setLiveUrl(""); }}
+                          className="w-full border border-outline-variant py-2 font-mono text-[13px] tracking-[0.15em] uppercase text-muted hover:text-white transition-all cursor-pointer"
+                        >
+                          CANCEL
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setShowLiveForm(true)}
+                        className="w-full border border-outline-variant py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase text-white hover:border-white transition-all cursor-pointer flex items-center justify-center gap-2"
+                      >
+                        <span className="w-2 h-2 bg-red-500 rounded-full" />
+                        GO LIVE
+                      </button>
+                    )}
+                  </div>
+
                   <div className="pt-6 border-t border-outline-variant mt-6">
                     <p className="font-mono text-[13px] tracking-widest text-muted uppercase mb-3">
                       {t.gameDetail.inviteLink}
@@ -392,14 +507,39 @@ export function GameDetailContent({
                     </div>
                   </div>
                 </>
-              ) : !isPaused ? (
-                <Link
-                  href={`/games/${game.id}/feedback`}
-                  className="w-full bg-white text-black py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-transparent hover:text-white border border-white transition-all block text-center"
-                >
-                  {t.gameDetail.giveFeedback}
-                </Link>
-              ) : null}
+              ) : (
+                <>
+                  {game.is_live && (
+                    <div className="border border-red-600/50 bg-red-600/10 p-4 mb-3">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                        <span className="font-mono text-[14px] text-white font-bold tracking-widest">LIVE SESSION</span>
+                      </div>
+                      {game.live_session_url && (
+                        <a
+                          href={game.live_session_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full bg-red-600 text-white py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-red-700 transition-all block text-center mb-2"
+                        >
+                          JOIN SESSION
+                        </a>
+                      )}
+                      <p className="font-mono text-[13px] text-muted">
+                        {game.live_session_url ? game.live_session_url : "Session is live - contact the developer to join"}
+                      </p>
+                    </div>
+                  )}
+                  {!isPaused && (
+                    <Link
+                      href={`/games/${game.id}/feedback`}
+                      className="w-full bg-white text-black py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-transparent hover:text-white border border-white transition-all block text-center"
+                    >
+                      {t.gameDetail.giveFeedback}
+                    </Link>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </aside>

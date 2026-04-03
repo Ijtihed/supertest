@@ -35,8 +35,13 @@ export function GameCard({
             </span>
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-black/80 px-2 py-0.5 border border-white/20">
-          <span className="font-mono text-[13px] tracking-tighter text-white">
+        <div className="absolute top-3 left-3 flex gap-2">
+          {game.is_live && (
+            <span className="bg-red-600 text-white px-2 py-0.5 font-mono text-[13px] font-bold tracking-wider animate-pulse">
+              LIVE
+            </span>
+          )}
+          <span className="bg-black/80 px-2 py-0.5 border border-white/20 font-mono text-[13px] tracking-tighter text-white">
             {game.game_type.toUpperCase()}
           </span>
         </div>

@@ -49,6 +49,8 @@ export interface Database {
           visibility: Visibility;
           invite_code: string;
           status: GameStatus;
+          is_live: boolean;
+          live_session_url: string | null;
           created_at: string;
         };
         Insert: {
@@ -65,6 +67,8 @@ export interface Database {
           visibility?: Visibility;
           invite_code?: string;
           status?: GameStatus;
+          is_live?: boolean;
+          live_session_url?: string | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["games"]["Insert"]>;
