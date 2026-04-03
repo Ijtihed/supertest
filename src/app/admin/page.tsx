@@ -12,9 +12,18 @@ export default async function AdminPage() {
     .select("*")
     .order("created_at", { ascending: false });
 
+  const { data: games } = await supabase
+    .from("games")
+    .select("*, profiles(display_name)")
+    .order("created_at", { ascending: false });
+
   return (
     <AppShell profile={profile} topnavTitle="ADMIN">
-      <AdminContent profiles={profiles ?? []} adminProfile={profile} />
+      <AdminContent
+        profiles={profiles ?? []}
+        adminProfile={profile}
+        games={games ?? []}
+      />
     </AppShell>
   );
 }

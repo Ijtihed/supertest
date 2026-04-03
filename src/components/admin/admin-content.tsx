@@ -5,14 +5,18 @@ import { useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useApp } from "@/lib/i18n/context";
 import { useToast } from "@/lib/toast/context";
-import type { Profile } from "@/lib/types/database";
+import type { Profile, Game } from "@/lib/types/database";
+
+type GameWithOwner = Game & { profiles: { display_name: string } };
 
 export function AdminContent({
   profiles,
   adminProfile,
+  games = [],
 }: {
   profiles: Profile[];
   adminProfile: Profile;
+  games?: GameWithOwner[];
 }) {
   const router = useRouter();
   const { addToast } = useToast();
@@ -20,6 +24,8 @@ export function AdminContent({
   const [busyId, setBusyId] = useState<string | null>(null);
   const [bulkApproving, setBulkApproving] = useState(false);
   const [search, setSearch] = useState("");
+  const [gameSearch, setGameSearch] = useState("");
+  const [deletingGameId, setDeletingGameId] = useState<string | null>(null);
 
   const filteredProfiles = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -219,6 +225,84 @@ export function AdminContent({
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      {/* Games Management */}
+      <div className="mt-16">
+        <h3 className="font-headline font-bold text-2xl tracking-tighter text-white uppercase mb-6">
+          GAME BUILDS
+        </h3>
+
+        <div className="mb-6">
+          <input
+            type="search"
+            value={gameSearch}
+            onChange={(e) => setGameSearch(e.target.value)}
+            placeholder="Search games by title..."
+            className="w-full max-w-md bg-surface-lowest border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-white font-mono text-sm placeholder:text-muted/50 px-3 py-3 outline-none transition-colors"
+          />
+        </div>
+
+        <div className="border border-outline-variant overflow-x-auto">
+          <div className="min-w-[700px]">
+            <div className="grid grid-cols-[2fr_1.2fr_0.8fr_0.8fr_auto] gap-0 font-mono text-[14px] text-muted uppercase tracking-widest border-b border-outline-variant bg-surface-container px-3 py-2">
+              <span>Title</span>
+              <span>Owner</span>
+              <span>Status</span>
+              <span>Created</span>
+              <span className="text-right">Actions</span>
+            </div>
+            <ul className="divide-y divide-outline-variant">
+              {games
+                .filter((g) => g.title.toLowerCase().includes(gameSearch.toLowerCase()))
+                .map((g) => (
+                <li
+                  key={g.id}
+                  className="grid grid-cols-[2fr_1.2fr_0.8fr_0.8fr_auto] gap-0 items-center px-3 py-3 bg-surface-lowest font-mono text-[14px] text-primary"
+                >
+                  <span className="truncate pr-2">{g.title}</span>
+                  <span className="truncate pr-2 text-muted">
+                    {g.profiles?.display_name ?? "—"}
+                  </span>
+                  <span className={g.status === "active" ? "text-success" : "text-muted"}>
+                    {g.status}
+                  </span>
+                  <span className="text-muted text-[13px]">
+                    {new Date(g.created_at).toLocaleDateString()}
+                  </span>
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      disabled={deletingGameId === g.id}
+                      onClick={async () => {
+                        if (!confirm(`Delete "${g.title}"? This cannot be undone.`)) return;
+                        setDeletingGameId(g.id);
+                        try {
+                          const supabase = createClient();
+                          const { error } = await supabase
+                            .from("games")
+                            .delete()
+                            .eq("id", g.id);
+                          if (error) {
+                            addToast(`Failed: ${error.message}`, "error");
+                          } else {
+                            addToast("Game deleted", "success");
+                            router.refresh();
+                          }
+                        } finally {
+                          setDeletingGameId(null);
+                        }
+                      }}
+                      className="border border-outline-variant px-3 py-1.5 font-mono text-[13px] uppercase tracking-wider text-muted hover:border-error hover:text-error disabled:opacity-40 transition-colors cursor-pointer"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
