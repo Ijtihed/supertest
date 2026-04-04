@@ -9,10 +9,6 @@
   <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ecf8e?style=for-the-badge" alt="Supabase"></a>
 </p>
 
-<p align="center">
-  <img src="public/browse.png" alt="Browse games" width="100%" />
-</p>
-
 Upload your game, play each other's builds, leave structured feedback. Ratings, bug reports, video evidence, custom questions, AI summaries, leaderboard. Built by [@ijtihedk](https://github.com/Ijtihed).
 
 > **The deployed instance is for the Supercell AI Lab cohort only.** Sign in with Google, enter your Supercell email, DM **@ijtihedk** on Slack to get approved.
