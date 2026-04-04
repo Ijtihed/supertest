@@ -1,222 +1,328 @@
-# Supertest
+<div align="center">
 
-**Playtesting platform for game developers.**
+# SUPERTEST
 
-<p align="center">
-  <a href="package.json"><img src="https://img.shields.io/badge/version-1.0.0--beta-white?style=for-the-badge" alt="Version"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="MIT License"></a>
-  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge" alt="Next.js 16"></a>
-  <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ecf8e?style=for-the-badge" alt="Supabase"></a>
+### Playtesting infra
+
+<p>
+  Upload builds, trade feedback, collect bugs and get testers.
 </p>
 
-Upload your game, play each other's builds, leave structured feedback. Ratings, bug reports, video evidence, custom questions, AI summaries, leaderboard. Built by [@ijtihedk](https://github.com/Ijtihed).
+<p>
+  <a href="package.json">
+    <img src="https://img.shields.io/badge/version-1.0.0--beta-f5f5f5?style=for-the-badge" alt="Version" />
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-4da3ff?style=for-the-badge" alt="MIT License" />
+  </a>
+  <a href="https://nextjs.org">
+    <img src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge" alt="Next.js 16" />
+  </a>
+  <a href="https://supabase.com">
+    <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ecf8e?style=for-the-badge" alt="Supabase" />
+  </a>
+</p>
 
-> **The deployed instance is for the Supercell AI Lab cohort only.** Sign in with Google, enter your Supercell email, DM **@ijtihedk** on Slack to get approved.
->
-> **The code is MIT licensed.** Fork it, deploy your own instance, swap the branding, use it for your own team / studio / class / jam. Everything is configurable — cohorts, questions, admin system, i18n. No Supercell-specific code baked in.
+<p>
+  <img src="https://img.shields.io/badge/reviews-structured-ea4aaa?style=flat-square" alt="Structured reviews" />
+  <img src="https://img.shields.io/badge/AI-browser--local-8b5cf6?style=flat-square" alt="Local AI summary" />
+  <img src="https://img.shields.io/badge/access-cohort%20or%20private-2563eb?style=flat-square" alt="Access control" />
+  <img src="https://img.shields.io/badge/i18n-EN%20%2F%20日本語-f59e0b?style=flat-square" alt="i18n" />
+</p>
+
+</div>
 
 ---
 
-## What it does
+## Ship builds, farm feedback, fix faster
 
-| You want to... | Supertest does... |
+Supertest is a playtesting platform for game developers.
+
+Drop in your build link, invite testers, collect structured reviews, surface bugs, attach video proof, generate AI summaries, and reward people for actually reviewing games.
+
+Built by [@ijtihedk](https://github.com/Ijtihed).
+
+> The deployed instance is for the Supercell AI Lab cohort only.  
+> Sign in with Google, enter your Supercell email, then DM `@ijtihedk` on Slack to get approved.
+
+> The code is MIT licensed.  
+> Fork it, deploy your own instance, swap branding, change the questions, adjust the access model, and run it for your own team, studio, class, jam, or cohort.
+
+---
+
+## Why this exists
+
+Playtesting usually breaks down into the same mess every time.
+
+- Build links buried in chat
+- Feedback scattered across DMs and docs
+- Bugs reported with no context
+- No incentive to review other people’s games
+- No clean way to compare responses across testers
+
+Supertest turns that into one loop.
+
+1. Developers post builds
+2. Testers play and submit structured reviews
+3. Owners get clean results, charts, raw comments, and exportable data
+4. Reviewers earn points and climb the leaderboard
+
+---
+
+## Core loop
+
+| Step | What happens |
 |---|---|
-| Share your game | Paste an itch.io / Google Drive link, add description + cover image |
-| Get feedback | 15 preset tester questions + custom questions you define |
-| See results | Ratings breakdown, bug reports, video links, AI summary, CSV export |
-| Find games to test | Browse page with genre/platform/cohort filters and sort |
-| Track engagement | Review points system — +10 per review, leaderboard |
-| Control access | Public dashboard or private invite link per game |
-| Admin | Approve/reject users, bulk approve, search by name/email |
+| Publish | Share an itch.io, Drive, or web build with cover, genre, platform, and cohort |
+| Review | Collect ratings, bugs, custom questions, video links, and free text |
+| Analyze | See averages, play-again rate, custom question charts, raw logs, and AI summaries |
+| Motivate | Give reviewers points and show who is actually contributing |
+| Control | Run public dashboards, private invites, or cohort-gated access |
 
 ---
 
-## Screenshots
+## Screens
+
+<div align="center">
 
 ### Dashboard
 
-Your games, reviews, and points at a glance.
+Your games, reviews, points, and activity in one place.
 
-<p align="center">
-  <img src="public/dashboard.png" alt="Dashboard" width="100%" />
-</p>
+<img src="public/dashboard.png" alt="Dashboard" width="100%" />
+
+<br />
+<br />
 
 ### Browse Games
 
-Filter by platform, cohort, and sort order. Search by name.
+Search and filter by platform, cohort, and genre.
 
-<p align="center">
-  <img src="public/browse.png" alt="Browse games" width="100%" />
-</p>
+<img src="public/browse.png" alt="Browse games" width="100%" />
+
+<br />
+<br />
 
 ### Leaderboard
 
-Top reviewers ranked by points. The more games you review, the higher you climb.
+Reward the people who actually test things.
 
-<p align="center">
-  <img src="public/leaderboard.png" alt="Leaderboard" width="100%" />
-</p>
+<img src="public/leaderboard.png" alt="Leaderboard" width="100%" />
+
+</div>
 
 ---
 
-## Tech Stack
+## What you get
+
+<table>
+  <tr>
+    <td valign="top" width="50%">
+
+### For developers
+
+- Publish builds in minutes
+- Add up to 15 custom questions
+- See ratings breakdowns and bug reports
+- Get one click AI summaries in the browser
+- Export all responses to CSV
+- Keep dashboards public or private
+
+  </td>
+    <td valign="top" width="50%">
+
+### For testers
+
+- Fast, clear feedback form
+- Structured scoring instead of random comments
+- Video evidence links for proof
+- Review points for every submitted review
+- Public leaderboard status
+- Clean browse page to find what to play next
+
+  </td>
+  </tr>
+</table>
+
+---
+
+## Feature breakdown
+
+### Structured feedback, not random noise
+
+Every review can include:
+
+- Overall rating, gameplay, visuals, and fun factor
+- Bug reports
+- Play-again probability
+- Video links, YouTube or Loom
+- Free text feedback
+- Up to 15 custom questions set by the game owner
+
+### Results dashboard that actually helps
+
+For every game, owners get:
+
+- Response count
+- Average ratings
+- Average fun score
+- Play-again percentage
+- Charts for custom questions
+- Full feedback log with relative timestamps
+- CSV export
+- AI summary generated locally in the browser
+
+### Review economy
+
+Every submitted review gives `+10 points`.
+
+That means people are pushed to test other games instead of only posting their own. The leaderboard makes contribution visible.
+
+### Access control built in
+
+- Google sign in
+- Cohort email onboarding
+- Admin approval flow
+- Pending and rejected states
+- Private invite links for specific games
+- Admin search, approve, reject, and bulk approve
+
+### Built to be forked
+
+Nothing important is hardcoded to one team.
+
+You can swap:
+
+- branding
+- cohorts
+- questions
+- copy
+- locale strings
+- access rules
+- admin flow
+
+---
+
+## Tech stack
 
 | Layer | Tech |
 |---|---|
-| Framework | Next.js 16 (App Router, TypeScript) |
-| Auth | Supabase Auth (Google OAuth) |
-| Database | Supabase PostgreSQL + Row Level Security |
-| Storage | Supabase Storage (cover images, 5MB limit) |
-| Styling | Tailwind CSS v4, Monolith Protocol design system |
-| i18n | English / 日本語 (client-side, localStorage) |
-| Testing | Vitest + React Testing Library (26 tests) |
-| CI | GitHub Actions (lint, typecheck, test, build) |
-
----
-
-## Quick Start
-
-```bash
-# 1. Clone & install
-git clone https://github.com/Ijtihed/supertest.git
-cd supertest
-npm install
-
-# 2. Configure
-cp .env.local.example .env.local
-# Fill in your Supabase URL + anon key
-
-# 3. Database setup — run these in Supabase SQL editor:
-#    supabase/schema.sql              (base tables)
-#    supabase/add_cohort.sql          (cohort column)
-#    supabase/add_admin_and_points.sql (admin + points system)
-
-# 4. Enable Google Auth
-#    Supabase → Authentication → Providers → Google
-#    Set redirect URL to http://localhost:3000/auth/callback
-
-# 5. Make yourself admin (replace YOUR_USER_ID_HERE)
-#    UPDATE public.profiles SET status = 'approved', is_admin = true WHERE id = 'YOUR_USER_ID_HERE';
-
-# 6. Run
-npm run dev
-```
-
----
-
-## Features
-
-### Feedback System
-
-Every game gets a structured feedback form:
-
-- Overall rating (1–5)
-- Gameplay, visuals, fun factor ratings
-- Bug reports (free text)
-- Play-again probability (yes / maybe / no)
-- Video evidence links (YouTube, Loom)
-- Up to 15 custom questions defined by the game owner
-- Free text area
-
-Reviewers earn **+10 points** per review. Points show on the leaderboard.
-
-### Results Dashboard
-
-Game owners see:
-
-- Stats row — response count, average rating, average fun, play-again %
-- **AI summary** — one-click analysis of all feedback (runs locally in the browser, no API key needed)
-- Custom question bar charts
-- Verbatim feedback logs with relative timestamps
-- **CSV export** — download all feedback as a spreadsheet
-
-### Game Management
-
-- External links (itch.io, Google Drive) or web embed URLs
-- Cover image upload (5MB max, PNG/JPG/WEBP)
-- 28 genre tags, 6 platform options
-- Public dashboard or private invite link
-- Disable builds with optional redirect to a successor
-- Re-enable disabled builds
-- Edit everything after publishing
-
-### Admin System
-
-- Users sign up → enter Supercell email → wait for approval
-- Admin panel: approve/reject individual users or bulk approve all
-- Search users by name or email
-- Only admins see the admin nav item
-
-### i18n
-
-Full English / Japanese translation across every page. Toggle in the topnav. Persists in localStorage.
+| Framework | Next.js 16, App Router, TypeScript |
+| Auth | Supabase Auth, Google OAuth |
+| Database | Supabase PostgreSQL, Row Level Security |
+| Storage | Supabase Storage for cover images |
+| Styling | Tailwind CSS v4, Monolith Protocol |
+| i18n | English and Japanese, localStorage persistence |
+| Testing | Vitest and React Testing Library |
+| CI | GitHub Actions, lint, typecheck, test, build |
 
 ---
 
 ## Routes
 
-20 routes total.
+`20 routes total`
 
-| Route | Access | What it does |
+| Route | Access | Purpose |
 |---|---|---|
 | `/` | Public | Landing page |
-| `/security` | Public | Security & privacy breakdown |
-| `/onboarding` | Auth | Cohort + Supercell email setup |
-| `/pending` | Auth | Waiting for admin approval |
-| `/rejected` | Auth | Account not approved |
-| `/dashboard` | Approved | Your games + reviews + points |
-| `/games` | Approved | Browse all public games |
+| `/security` | Public | Security and privacy breakdown |
+| `/onboarding` | Auth | Cohort and Supercell email setup |
+| `/pending` | Auth | Waiting for approval |
+| `/rejected` | Auth | Account rejected |
+| `/dashboard` | Approved | Your games, reviews, and points |
+| `/games` | Approved | Browse public games |
 | `/games/new` | Approved | Create a new game |
-| `/games/[id]` | Approved | Game detail — ratings, description, download |
-| `/games/[id]/edit` | Owner | Edit game after publishing |
-| `/games/[id]/feedback` | Approved | Submit structured feedback |
-| `/games/[id]/results` | Owner | Feedback dashboard + AI summary + CSV export |
-| `/leaderboard` | Approved | Top 50 reviewers by points |
-| `/profile/[id]` | Approved | User profile — games, reviews, stats |
-| `/admin` | Admin | Approve/reject users, bulk approve, search |
-| `/settings` | Approved | Cohort, language, account |
-| `/invite/[code]` | Approved | Private invite link resolver |
+| `/games/[id]` | Approved | Game detail page |
+| `/games/[id]/edit` | Owner | Edit game |
+| `/games/[id]/feedback` | Approved | Submit feedback |
+| `/games/[id]/results` | Owner | Results dashboard, AI summary, CSV export |
+| `/leaderboard` | Approved | Reviewer rankings |
+| `/profile/[id]` | Approved | User profile and stats |
+| `/admin` | Admin | User approval and management |
+| `/settings` | Approved | Language, cohort, account |
+| `/invite/[code]` | Approved | Private invite resolver |
 
 ---
 
-## Project Structure
+## Quick start
 
+```bash
+git clone https://github.com/Ijtihed/supertest.git
+cd supertest
+npm install
+cp .env.local.example .env.local
 ```
+
+Fill in your Supabase URL and anon key.
+
+Then run the SQL files in Supabase:
+
+```txt
+supabase/schema.sql
+supabase/add_cohort.sql
+supabase/add_admin_and_points.sql
+```
+
+Enable Google Auth in Supabase and set the callback URL:
+
+```txt
+http://localhost:3000/auth/callback
+```
+
+Make yourself admin:
+
+```sql
+UPDATE public.profiles
+SET status = 'approved', is_admin = true
+WHERE id = 'YOUR_USER_ID_HERE';
+```
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+---
+
+## Project structure
+
+```txt
 src/
-├── app/                      # 20 Next.js routes
-│   ├── admin/                # Admin panel
-│   ├── auth/                 # OAuth callback + sign out
-│   ├── dashboard/            # Dashboard + loading skeleton
-│   ├── games/                # Browse, detail, edit, feedback, results, new
-│   ├── leaderboard/          # Review points leaderboard
-│   ├── onboarding/           # Cohort + email setup
-│   ├── pending/              # Awaiting approval
-│   ├── profile/              # User profiles
-│   ├── security/             # Security page
-│   └── settings/             # User settings
+├── app/
+│   ├── admin/
+│   ├── auth/
+│   ├── dashboard/
+│   ├── games/
+│   ├── leaderboard/
+│   ├── onboarding/
+│   ├── pending/
+│   ├── profile/
+│   ├── security/
+│   └── settings/
 ├── components/
-│   ├── admin/                # Admin content
-│   ├── auth/                 # Sign-in button
-│   ├── dashboard/            # Dashboard content
-│   ├── feedback/             # Feedback form + results
-│   ├── games/                # Cards, browse, detail, forms
-│   ├── layout/               # Sidebar, topnav, footer, app shell
-│   ├── leaderboard/          # Leaderboard content
-│   ├── onboarding/           # Cohort selector, email step
-│   ├── profile/              # Profile page content
-│   ├── settings/             # Settings content
-│   └── ui/                   # Toast, markdown renderer
+│   ├── admin/
+│   ├── auth/
+│   ├── dashboard/
+│   ├── feedback/
+│   ├── games/
+│   ├── layout/
+│   ├── leaderboard/
+│   ├── onboarding/
+│   ├── profile/
+│   ├── settings/
+│   └── ui/
 ├── lib/
-│   ├── actions/              # Server actions (auth)
-│   ├── auth/                 # requireProfile, requireAdmin
-│   ├── i18n/                 # Translations (EN/JA) + context
-│   ├── queries/              # Shared data-fetching helpers
-│   ├── supabase/             # Client, server, middleware
-│   ├── toast/                # Toast notification context
-│   ├── types/                # Database types
-│   └── utils/                # AI summarizer, relative time
-├── __tests__/                # 26 tests across 6 suites
-└── middleware.ts              # Supabase session refresh
+│   ├── actions/
+│   ├── auth/
+│   ├── i18n/
+│   ├── queries/
+│   ├── supabase/
+│   ├── toast/
+│   ├── types/
+│   └── utils/
+├── __tests__/
+└── middleware.ts
 ```
 
 ---
@@ -225,41 +331,53 @@ src/
 
 | Command | What it does |
 |---|---|
-| `npm run dev` | Dev server |
+| `npm run dev` | Start dev server |
 | `npm run build` | Production build |
 | `npm run start` | Start production server |
-| `npm run test` | Tests (watch mode) |
-| `npm run test:run` | Tests (single run) |
-| `npm run lint` | ESLint |
+| `npm run test` | Test watch mode |
+| `npm run test:run` | Single test run |
+| `npm run lint` | Run ESLint |
 
 ---
 
-## Security
+## Security summary
 
-Full breakdown at [`/security`](src/app/security/page.tsx). Summary:
+Full breakdown lives at [`/security`](src/app/security/page.tsx).
 
-- **Auth**: Google OAuth via Supabase, HTTP-only session cookies
-- **Database**: Row Level Security on every table — users can only read/write what they're allowed to
-- **SQL injection**: Impossible — all queries use Supabase client parameterized API, zero raw SQL
-- **Uploads**: Cover images only (PNG/JPG/WEBP, 5MB max). Two-layer size check (client + pre-upload)
-- **Admin gate**: All routes require approved status. Pending users see a waiting screen
-- **No secrets in code**: env vars only, `.env.local` gitignored
+- Google OAuth via Supabase
+- HTTP only session cookies
+- Row Level Security on all tables
+- Parameterized Supabase queries, no raw application SQL
+- 5MB image upload limit with file type checks
+- Admin approval gate for protected routes
+- Environment variables for secrets
 
-What's NOT covered: no E2E encryption, no rate limiting beyond Supabase defaults, no pen testing, storage bucket is public (URLs are unguessable but not private).
+Not covered yet:
+
+- End to end encryption
+- Custom rate limiting beyond Supabase defaults
+- Formal pen testing
+- Private storage buckets for uploaded covers
 
 ---
 
-## Design System
+## Design system
 
-**The Monolith Protocol** — dark-mode only, monochrome, brutalist.
+Supertest follows a dark, sharp, game-adjacent system.
 
-- Background `#131313` / Surfaces `#0E0E0E` → `#393939`
-- Text `#e8e8e8` primary / `#d0d0d0` secondary / `#525252` muted
-- Fonts: Space Grotesk (headlines), Inter (body), Geist Mono (labels/data)
-- No shadows, no gradients, no rounded corners > 4px
+- Backgrounds from `#131313` to `#0E0E0E`
+- High contrast text and muted data tones
+- Space Grotesk for headlines
+- Inter for body copy
+- Geist Mono for labels and metrics
+- Minimal rounding
+- No soft marketing fluff
+- Dense product-first UI
 
 ---
 
 ## License
 
-[MIT](LICENSE) — do whatever you want with it. Attribution required.
+[MIT](LICENSE)
+
+Use it, fork it, reskin it, deploy it.
