@@ -1,4 +1,6 @@
-# Supertest - Playtesting platform for game developers.
+# Supertest
+
+**Playtesting platform for game developers.**
 
 <p align="center">
   <a href="package.json"><img src="https://img.shields.io/badge/version-1.0.0--beta-white?style=for-the-badge" alt="Version"></a>
@@ -7,11 +9,15 @@
   <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ecf8e?style=for-the-badge" alt="Supabase"></a>
 </p>
 
-**Supertest** is an open-source playtesting platform. Upload your game, play each other's builds, leave structured feedback. Ratings, bug reports, video evidence, custom questions, AI summaries, leaderboard. Built by [@ijtihedk](https://github.com/Ijtihed).
+<p align="center">
+  <img src="public/browse.png" alt="Browse games" width="100%" />
+</p>
+
+Upload your game, play each other's builds, leave structured feedback. Ratings, bug reports, video evidence, custom questions, AI summaries, leaderboard. Built by [@ijtihedk](https://github.com/Ijtihed).
 
 > **The deployed instance is for the Supercell AI Lab cohort only.** Sign in with Google, enter your Supercell email, DM **@ijtihedk** on Slack to get approved.
 >
-> **The code is MIT licensed.** Fork it, deploy your own instance, swap the branding, use it for your own team/studio/class/jam. Everything is configurable - cohorts, questions, admin system, i18n. No Supercell-specific code baked in.
+> **The code is MIT licensed.** Fork it, deploy your own instance, swap the branding, use it for your own team / studio / class / jam. Everything is configurable — cohorts, questions, admin system, i18n. No Supercell-specific code baked in.
 
 ---
 
@@ -22,10 +28,38 @@
 | Share your game | Paste an itch.io / Google Drive link, add description + cover image |
 | Get feedback | 15 preset tester questions + custom questions you define |
 | See results | Ratings breakdown, bug reports, video links, AI summary, CSV export |
-| Find games to test | Browse page with genre/platform filters |
-| Track engagement | Review points system - +10 per review, leaderboard |
+| Find games to test | Browse page with genre/platform/cohort filters and sort |
+| Track engagement | Review points system — +10 per review, leaderboard |
 | Control access | Public dashboard or private invite link per game |
 | Admin | Approve/reject users, bulk approve, search by name/email |
+
+---
+
+## Screenshots
+
+### Dashboard
+
+Your games, reviews, and points at a glance.
+
+<p align="center">
+  <img src="public/dashboard.png" alt="Dashboard" width="100%" />
+</p>
+
+### Browse Games
+
+Filter by platform, cohort, and sort order. Search by name.
+
+<p align="center">
+  <img src="public/browse.png" alt="Browse games" width="100%" />
+</p>
+
+### Leaderboard
+
+Top reviewers ranked by points. The more games you review, the higher you climb.
+
+<p align="center">
+  <img src="public/leaderboard.png" alt="Leaderboard" width="100%" />
+</p>
 
 ---
 
@@ -36,37 +70,11 @@
 | Framework | Next.js 16 (App Router, TypeScript) |
 | Auth | Supabase Auth (Google OAuth) |
 | Database | Supabase PostgreSQL + Row Level Security |
-| Storage | Supabase Storage (cover images only, 5MB limit) |
+| Storage | Supabase Storage (cover images, 5MB limit) |
 | Styling | Tailwind CSS v4, Monolith Protocol design system |
 | i18n | English / 日本語 (client-side, localStorage) |
 | Testing | Vitest + React Testing Library (26 tests) |
 | CI | GitHub Actions (lint, typecheck, test, build) |
-
----
-
-## Routes
-
-20 routes total.
-
-| Route | Access | What it does |
-|---|---|---|
-| `/` | Public | Landing page |
-| `/security` | Public | Security & privacy breakdown |
-| `/onboarding` | Auth | Cohort + Supercell email setup |
-| `/pending` | Auth | Waiting for admin approval |
-| `/rejected` | Auth | Account not approved |
-| `/dashboard` | Approved | Your games + reviews + points |
-| `/games` | Approved | Browse all public games |
-| `/games/new` | Approved | Create a new game |
-| `/games/[id]` | Approved | Game detail - ratings, description, download |
-| `/games/[id]/edit` | Owner | Edit game after publishing |
-| `/games/[id]/feedback` | Approved | Submit structured feedback |
-| `/games/[id]/results` | Owner | Feedback dashboard + AI summary + CSV export |
-| `/leaderboard` | Approved | Top 50 reviewers by points |
-| `/profile/[id]` | Approved | User profile - games, reviews, stats |
-| `/admin` | Admin | Approve/reject users, bulk approve, search |
-| `/settings` | Approved | Cohort, language, account |
-| `/invite/[code]` | Approved | Private invite link resolver |
 
 ---
 
@@ -82,10 +90,10 @@ npm install
 cp .env.local.example .env.local
 # Fill in your Supabase URL + anon key
 
-# 3. Database setup - run these in Supabase SQL editor:
-#    supabase/schema.sql        (base tables)
-#    supabase/add_cohort.sql    (cohort column)
-#    supabase/add_admin_and_points.sql  (admin + points system)
+# 3. Database setup — run these in Supabase SQL editor:
+#    supabase/schema.sql              (base tables)
+#    supabase/add_cohort.sql          (cohort column)
+#    supabase/add_admin_and_points.sql (admin + points system)
 
 # 4. Enable Google Auth
 #    Supabase → Authentication → Providers → Google
@@ -104,14 +112,14 @@ npm run dev
 
 ### Feedback System
 
-Every game gets a structured feedback form with:
-- Overall rating (1-5)
+Every game gets a structured feedback form:
+
+- Overall rating (1–5)
 - Gameplay, visuals, fun factor ratings
 - Bug reports (free text)
 - Play-again probability (yes / maybe / no)
 - Video evidence links (YouTube, Loom)
-- 15 preset tester questions (controls, difficulty, crashes, audio, UI, pacing...)
-- Custom questions defined by the game owner
+- Up to 15 custom questions defined by the game owner
 - Free text area
 
 Reviewers earn **+10 points** per review. Points show on the leaderboard.
@@ -119,32 +127,59 @@ Reviewers earn **+10 points** per review. Points show on the leaderboard.
 ### Results Dashboard
 
 Game owners see:
-- Stats row - response count, average rating, average fun, play-again %
-- **AI summary** - one-click analysis of all feedback (runs locally, no API key)
+
+- Stats row — response count, average rating, average fun, play-again %
+- **AI summary** — one-click analysis of all feedback (runs locally in the browser, no API key needed)
 - Custom question bar charts
 - Verbatim feedback logs with relative timestamps
-- **CSV export** - download all feedback as a spreadsheet
+- **CSV export** — download all feedback as a spreadsheet
+
+### Game Management
+
+- External links (itch.io, Google Drive) or web embed URLs
+- Cover image upload (5MB max, PNG/JPG/WEBP)
+- 28 genre tags, 6 platform options
+- Public dashboard or private invite link
+- Disable builds with optional redirect to a successor
+- Re-enable disabled builds
+- Edit everything after publishing
 
 ### Admin System
 
 - Users sign up → enter Supercell email → wait for approval
-- Admin panel: approve/reject individual users or **bulk approve all**
+- Admin panel: approve/reject individual users or bulk approve all
 - Search users by name or email
 - Only admins see the admin nav item
-
-### Game Management
-
-- Create games with external links (itch.io, Google Drive) or web game URLs
-- Cover image upload (5MB max, PNG/JPG/WEBP only)
-- 28 genre tags, 6 platform options
-- Public dashboard or private invite link
-- **Disable builds** - optionally redirect to a successor build
-- **Re-enable builds** - bring disabled games back
-- Edit everything after publishing
 
 ### i18n
 
 Full English / Japanese translation across every page. Toggle in the topnav. Persists in localStorage.
+
+---
+
+## Routes
+
+20 routes total.
+
+| Route | Access | What it does |
+|---|---|---|
+| `/` | Public | Landing page |
+| `/security` | Public | Security & privacy breakdown |
+| `/onboarding` | Auth | Cohort + Supercell email setup |
+| `/pending` | Auth | Waiting for admin approval |
+| `/rejected` | Auth | Account not approved |
+| `/dashboard` | Approved | Your games + reviews + points |
+| `/games` | Approved | Browse all public games |
+| `/games/new` | Approved | Create a new game |
+| `/games/[id]` | Approved | Game detail — ratings, description, download |
+| `/games/[id]/edit` | Owner | Edit game after publishing |
+| `/games/[id]/feedback` | Approved | Submit structured feedback |
+| `/games/[id]/results` | Owner | Feedback dashboard + AI summary + CSV export |
+| `/leaderboard` | Approved | Top 50 reviewers by points |
+| `/profile/[id]` | Approved | User profile — games, reviews, stats |
+| `/admin` | Admin | Approve/reject users, bulk approve, search |
+| `/settings` | Approved | Cohort, language, account |
+| `/invite/[code]` | Approved | Private invite link resolver |
 
 ---
 
@@ -179,6 +214,7 @@ src/
 │   ├── actions/              # Server actions (auth)
 │   ├── auth/                 # requireProfile, requireAdmin
 │   ├── i18n/                 # Translations (EN/JA) + context
+│   ├── queries/              # Shared data-fetching helpers
 │   ├── supabase/             # Client, server, middleware
 │   ├── toast/                # Toast notification context
 │   ├── types/                # Database types
@@ -207,10 +243,10 @@ src/
 Full breakdown at [`/security`](src/app/security/page.tsx). Summary:
 
 - **Auth**: Google OAuth via Supabase, HTTP-only session cookies
-- **Database**: Row Level Security on every table - users can only read/write what they're allowed to
-- **SQL injection**: Impossible - all queries use Supabase client parameterized API, zero raw SQL
-- **Uploads**: Cover images only (PNG/JPG/WEBP, 5MB max). No game file uploads. Two-layer size check (client + pre-upload)
-- **Admin gate**: All routes require approved status. Pending users see a waiting screen.
+- **Database**: Row Level Security on every table — users can only read/write what they're allowed to
+- **SQL injection**: Impossible — all queries use Supabase client parameterized API, zero raw SQL
+- **Uploads**: Cover images only (PNG/JPG/WEBP, 5MB max). Two-layer size check (client + pre-upload)
+- **Admin gate**: All routes require approved status. Pending users see a waiting screen
 - **No secrets in code**: env vars only, `.env.local` gitignored
 
 What's NOT covered: no E2E encryption, no rate limiting beyond Supabase defaults, no pen testing, storage bucket is public (URLs are unguessable but not private).
@@ -219,16 +255,15 @@ What's NOT covered: no E2E encryption, no rate limiting beyond Supabase defaults
 
 ## Design System
 
-**The Monolith Protocol** - dark-mode only, monochrome, brutalist.
+**The Monolith Protocol** — dark-mode only, monochrome, brutalist.
 
 - Background `#131313` / Surfaces `#0E0E0E` → `#393939`
 - Text `#e8e8e8` primary / `#d0d0d0` secondary / `#525252` muted
 - Fonts: Space Grotesk (headlines), Inter (body), Geist Mono (labels/data)
 - No shadows, no gradients, no rounded corners > 4px
-- Root font size: 18px
 
 ---
 
 ## License
 
-MIT - do whatever you want with it.
+[MIT](LICENSE) — do whatever you want with it. Attribution required.
