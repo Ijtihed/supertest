@@ -173,7 +173,7 @@ export function GameDetailContent({
         {game.cover_image_url ? (
           <img
             alt={game.title}
-            className="w-full h-full object-cover grayscale opacity-60"
+            className="w-full h-full object-cover opacity-80"
             src={game.cover_image_url}
           />
         ) : (
