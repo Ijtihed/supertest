@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/i18n/context";
+import { useToast } from "@/lib/toast/context";
 import { createClient } from "@/lib/supabase/client";
 import type {
   FeedbackQuestion,
@@ -39,6 +40,7 @@ export function EditGameForm({
   existingQuestions: FeedbackQuestion[];
 }) {
   const { t } = useApp();
+  const { addToast } = useToast();
   const router = useRouter();
   const initialQuestions = useMemo(
     () => mapRowsToCustom(existingQuestions),
@@ -153,10 +155,12 @@ export function EditGameForm({
         if (insError) throw insError;
       }
 
+      addToast("Build updated!", "success");
       router.push(`/games/${game.id}`);
       router.refresh();
     } catch (err) {
       console.error("Failed to update game:", err);
+      addToast("Failed to update game", "error");
     } finally {
       setSubmitting(false);
     }
