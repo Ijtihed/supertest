@@ -90,10 +90,12 @@ export function NewGameForm() {
 
     try {
       const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        addToast("Session expired — please sign in again", "error");
+        return;
+      }
+      const user = session.user;
 
       let coverImageUrl: string | null = null;
 
@@ -134,7 +136,8 @@ export function NewGameForm() {
         .single();
 
       if (error) {
-        addToast("Failed to create game", "error");
+        console.error("Supabase insert error:", error);
+        addToast(`Failed to create game: ${error.message}`, "error");
         return;
       }
 
