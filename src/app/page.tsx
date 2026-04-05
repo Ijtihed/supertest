@@ -1,15 +1,43 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Footer } from "@/components/layout/footer";
 import { MarketingNav } from "@/components/layout/marketing-nav";
 import { SignInButton } from "@/components/auth/sign-in-button";
 import { useApp } from "@/lib/i18n/context";
+import { createClient } from "@/lib/supabase/client";
 
 export default function LandingPage() {
   const { t } = useApp();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const authError = searchParams.get("error") === "auth";
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        router.replace("/dashboard");
+      } else {
+        setChecking(false);
+      }
+    });
+  }, [router]);
+
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-6">
+          <div className="relative w-10 h-10">
+            <div className="absolute inset-0 border border-primary/30 animate-ping" />
+            <div className="absolute inset-0 border border-primary border-t-transparent animate-spin" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-black-absolute text-primary min-h-screen flex flex-col">
