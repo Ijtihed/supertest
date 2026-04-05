@@ -22,18 +22,26 @@ export default async function GameDetailPage({
   const { id } = await params;
   const { supabase, user, profile } = await requireProfile();
 
-  const { data: game } = await supabase
-    .from("games")
-    .select("*, profiles(display_name, avatar_url)")
-    .eq("id", id)
-    .single();
+  const [{ data: game }, { data: feedbackResponses }, { data: existingReview }] =
+    await Promise.all([
+      supabase
+        .from("games")
+        .select("*, profiles(display_name, avatar_url)")
+        .eq("id", id)
+        .single(),
+      supabase
+        .from("feedback_responses")
+        .select("overall_rating")
+        .eq("game_id", id),
+      supabase
+        .from("feedback_responses")
+        .select("id")
+        .eq("game_id", id)
+        .eq("reviewer_id", user.id)
+        .maybeSingle(),
+    ]);
 
   if (!game) notFound();
-
-  const { data: feedbackResponses } = await supabase
-    .from("feedback_responses")
-    .select("*")
-    .eq("game_id", id);
 
   const feedbackCount = feedbackResponses?.length ?? 0;
   const avgRating =
@@ -45,14 +53,6 @@ export default async function GameDetailPage({
       : "0.0";
   const isOwner = user.id === game.owner_id;
   const isAdmin = profile.is_admin;
-
-  const { data: existingReview } = await supabase
-    .from("feedback_responses")
-    .select("id")
-    .eq("game_id", id)
-    .eq("reviewer_id", user.id)
-    .maybeSingle();
-
   const hasReviewed = !!existingReview;
 
   let collaborators: { id: string; display_name: string; avatar_url: string | null }[] = [];

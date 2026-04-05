@@ -11,19 +11,20 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const { supabase, user, profile } = await requireProfile();
 
-  const { data: myGames } = await supabase
-    .from("games")
-    .select("*")
-    .eq("owner_id", user.id)
-    .order("created_at", { ascending: false });
+  const [{ data: myGames }, { data: myReviews }] = await Promise.all([
+    supabase
+      .from("games")
+      .select("*")
+      .eq("owner_id", user.id)
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("feedback_responses")
+      .select("*, games(*)")
+      .eq("reviewer_id", user.id)
+      .order("created_at", { ascending: false }),
+  ]);
 
   const countMap = await getFeedbackCounts(supabase, (myGames ?? []).map((g) => g.id));
-
-  const { data: myReviews } = await supabase
-    .from("feedback_responses")
-    .select("*, games(*)")
-    .eq("reviewer_id", user.id)
-    .order("created_at", { ascending: false });
 
   return (
     <AppShell profile={profile} topnavTitle="DASHBOARD">

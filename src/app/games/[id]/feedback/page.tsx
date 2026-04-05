@@ -16,28 +16,25 @@ export default async function FeedbackPage({
   const { id } = await params;
   const { supabase, profile, user } = await requireProfile();
 
-  const { data: game } = await supabase
-    .from("games")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const [{ data: game }, { data: existing }, { data: questions }] =
+    await Promise.all([
+      supabase.from("games").select("*").eq("id", id).single(),
+      supabase
+        .from("feedback_responses")
+        .select("*")
+        .eq("game_id", id)
+        .eq("reviewer_id", user.id)
+        .maybeSingle(),
+      supabase
+        .from("feedback_questions")
+        .select("*")
+        .eq("game_id", id)
+        .order("sort_order"),
+    ]);
 
   if (!game) notFound();
   if (game.owner_id === user.id) redirect(`/games/${id}`);
   if (game.status === "paused") redirect(`/games/${id}`);
-
-  const { data: existing } = await supabase
-    .from("feedback_responses")
-    .select("*")
-    .eq("game_id", id)
-    .eq("reviewer_id", user.id)
-    .maybeSingle();
-
-  const { data: questions } = await supabase
-    .from("feedback_questions")
-    .select("*")
-    .eq("game_id", id)
-    .order("sort_order");
 
   return (
     <AppShell profile={profile} topnavTitle="FEEDBACK">
