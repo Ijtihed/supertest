@@ -1,6 +1,6 @@
 <div align="center">
 
-# SUPERTEST
+# superTest
 
 ### Playtesting infra
 
