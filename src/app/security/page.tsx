@@ -28,8 +28,8 @@ export default function SecurityPage() {
             </h2>
             <p className="font-body text-secondary leading-relaxed text-lg">
               {locale === "ja"
-                ? "Supertestは、Supercell AI Labバッチのために一人の開発者がサイドプロジェクトとして構築しました。セキュリティのベストプラクティスに従っていますが、専門のセキュリティチームによる監査は受けていません。以下はその仕組みの正直な説明です。"
-                : "Supertest was built by one developer as a side project for the Supercell AI Lab batch. It follows security best practices but has not been audited by a dedicated security team. Here's an honest breakdown of how it works."}
+                ? "superTestは、Supercell AI Labバッチのために一人の開発者がサイドプロジェクトとして構築しました。セキュリティのベストプラクティスに従っていますが、専門のセキュリティチームによる監査は受けていません。以下はその仕組みの正直な説明です。"
+                : "superTest was built by one developer as a side project for the Supercell AI Lab batch. It follows security best practices but has not been audited by a dedicated security team. Here's an honest breakdown of how it works."}
             </p>
           </section>
 

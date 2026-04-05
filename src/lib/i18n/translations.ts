@@ -2,7 +2,7 @@ export type Locale = "en" | "ja";
 
 const translations = {
   en: {
-    brand: "Supertest",
+    brand: "superTest",
     nav: {
       dashboard: "DASHBOARD",
       browse: "BROWSE",
@@ -41,7 +41,7 @@ const translations = {
         "One-click AI summary of all your feedback. Spot common themes across reviewers without reading every response.",
       accessTitle: "Access",
       accessDesc:
-        "Supertest is currently restricted to the Supercell AI Lab cohort. Sign in with Google, enter your Supercell email during onboarding, then DM @ijtihedk on Slack to get approved. You'll pick your cohort (Helsinki, San Francisco, or Tokyo) during setup.",
+        "superTest is currently restricted to the Supercell AI Lab cohort. Sign in with Google, enter your Supercell email during onboarding, then DM @ijtihedk on Slack to get approved. You'll pick your cohort (Helsinki, San Francisco, or Tokyo) during setup.",
       securityTitle: "Security & Privacy",
       securityDesc:
         "Being transparent: this was built by one dev as a side project. Your data (emails, game builds, cover images, feedback) is stored in Supabase (PostgreSQL + object storage) with row-level security policies. Auth is Google OAuth via Supabase. It's reasonably secure but I wouldn't call it battle-tested enterprise software. Don't upload anything you'd consider highly sensitive. The code is open and you can check exactly how everything works.",
@@ -199,7 +199,7 @@ const translations = {
       saved: "SAVED",
     },
     onboarding: {
-      welcome: "Welcome to Supertest",
+      welcome: "Welcome to superTest",
       selectCohort: "Select your cohort to get started",
       continue: "CONTINUE",
       supercellEmail: "Supercell Email",
@@ -222,7 +222,7 @@ const translations = {
     },
   },
   ja: {
-    brand: "Supertest",
+    brand: "superTest",
     nav: {
       dashboard: "ダッシュボード",
       browse: "ブラウズ",
@@ -261,7 +261,7 @@ const translations = {
         "ワンクリックで全フィードバックのAI要約。すべてのレスポンスを読まなくても共通テーマを発見。",
       accessTitle: "アクセス",
       accessDesc:
-        "Supertestは現在Supercell AI Labコーホート限定です。Googleでログインし、オンボーディングでSupercellメールを入力後、Slackで @ijtihedk にDMして承認を受けてください。セットアップ時にコーホート（ヘルシンキ、サンフランシスコ、東京）を選択します。",
+        "superTestは現在Supercell AI Labコーホート限定です。Googleでログインし、オンボーディングでSupercellメールを入力後、Slackで @ijtihedk にDMして承認を受けてください。セットアップ時にコーホート（ヘルシンキ、サンフランシスコ、東京）を選択します。",
       securityTitle: "セキュリティ＆プライバシー",
       securityDesc:
         "正直に言うと：これは一人の開発者がサイドプロジェクトとして構築したものです。データ（メール、ゲームビルド、カバー画像、フィードバック）はSupabase（PostgreSQL + オブジェクトストレージ）に行レベルセキュリティポリシーで保存されます。認証はSupabase経由のGoogle OAuth。合理的に安全ですが、実戦テスト済みのエンタープライズソフトウェアとは言えません。高度に機密性のあるものはアップロードしないでください。",
@@ -417,7 +417,7 @@ const translations = {
       saved: "保存済み",
     },
     onboarding: {
-      welcome: "Supertestへようこそ",
+      welcome: "superTestへようこそ",
       selectCohort: "コーホートを選択して開始",
       continue: "続ける",
       supercellEmail: "Supercellメール",

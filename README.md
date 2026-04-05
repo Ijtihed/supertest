@@ -36,7 +36,7 @@
 
 ## Ship builds, farm feedback, fix faster
 
-Supertest is a playtesting platform for game developers.
+superTest is a playtesting platform for game developers.
 
 Drop in your build link, invite testers, collect structured reviews, surface bugs, attach video proof, generate AI summaries, and reward people for actually reviewing games.
 
@@ -60,7 +60,7 @@ Playtesting usually breaks down into the same mess every time.
 - No incentive to review other people’s games
 - No clean way to compare responses across testers
 
-Supertest turns that into one loop.
+superTest turns that into one loop.
 
 1. Developers post builds
 2. Testers play and submit structured reviews
@@ -363,7 +363,7 @@ Not covered yet:
 
 ## Design system
 
-Supertest follows a dark, sharp, game-adjacent system.
+superTest follows a dark, sharp, game-adjacent system.
 
 - Backgrounds from `#131313` to `#0E0E0E`
 - High contrast text and muted data tones
