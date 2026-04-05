@@ -342,34 +342,36 @@ export function GameDetailContent({
         {/* Right Column — Sticky Card */}
         <aside className="sticky top-24 space-y-4">
           <div className="bg-surface-container border border-outline-variant p-8">
-            <div className="flex flex-col items-center mb-8">
-              <span className="font-mono text-[14px] text-muted tracking-[0.3em] uppercase mb-2">
-                {t.gameDetail.systemRating}
-              </span>
-              <div className="font-mono text-7xl font-bold text-white tracking-tighter">
-                {avgRating}
+            {isOwner && (
+              <div className="flex flex-col items-center mb-8">
+                <span className="font-mono text-[14px] text-muted tracking-[0.3em] uppercase mb-2">
+                  {t.gameDetail.systemRating}
+                </span>
+                <div className="font-mono text-7xl font-bold text-white tracking-tighter">
+                  {avgRating}
+                </div>
+                <div className="flex gap-1 mt-4">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <span
+                      key={i}
+                      className="material-symbols-outlined text-primary"
+                      style={{
+                        fontVariationSettings: `'FILL' ${i <= stars ? 1 : 0}`,
+                      }}
+                    >
+                      star
+                    </span>
+                  ))}
+                </div>
+                <span className="font-mono text-[13px] text-muted uppercase mt-2 tracking-widest">
+                  {locale === "ja"
+                    ? `${feedbackCount}${t.gameDetail.samples}`
+                    : `${t.gameDetail.basedOn} ${feedbackCount} ${t.gameDetail.samples}`}
+                </span>
               </div>
-              <div className="flex gap-1 mt-4">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <span
-                    key={i}
-                    className="material-symbols-outlined text-primary"
-                    style={{
-                      fontVariationSettings: `'FILL' ${i <= stars ? 1 : 0}`,
-                    }}
-                  >
-                    star
-                  </span>
-                ))}
-              </div>
-              <span className="font-mono text-[13px] text-muted uppercase mt-2 tracking-widest">
-                {locale === "ja"
-                  ? `${feedbackCount}${t.gameDetail.samples}`
-                  : `${t.gameDetail.basedOn} ${feedbackCount} ${t.gameDetail.samples}`}
-              </span>
-            </div>
+            )}
 
-            <div className="mt-12 space-y-3">
+            <div className={`${isOwner ? "mt-12" : ""} space-y-3`}>
               {isOwner ? (
                 <>
                   <Link
