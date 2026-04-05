@@ -18,6 +18,7 @@ export function GameDetailContent({
   feedbackCount,
   avgRating,
   isOwner,
+  isAdmin = false,
   hasReviewed = false,
   collaborators = [],
 }: {
@@ -25,6 +26,7 @@ export function GameDetailContent({
   feedbackCount: number;
   avgRating: string;
   isOwner: boolean;
+  isAdmin?: boolean;
   hasReviewed?: boolean;
   collaborators?: { id: string; display_name: string; avatar_url: string | null }[];
 }) {
@@ -41,6 +43,8 @@ export function GameDetailContent({
   const [showLiveForm, setShowLiveForm] = useState(false);
   const [liveUrl, setLiveUrl] = useState("");
   const [liveSubmitting, setLiveSubmitting] = useState(false);
+  const [confirmingAdminDelete, setConfirmingAdminDelete] = useState(false);
+  const [adminDeleting, setAdminDeleting] = useState(false);
 
   const isPaused = game.status === "paused";
   const hideHowToPlayForVisitor = isPaused && !isOwner;
@@ -127,6 +131,22 @@ export function GameDetailContent({
       router.refresh();
     } finally {
       setLiveSubmitting(false);
+    }
+  }
+
+  async function adminDeleteGame() {
+    setAdminDeleting(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from("games").delete().eq("id", game.id);
+      if (error) {
+        addToast("Failed to delete game", "error");
+        return;
+      }
+      addToast("Game deleted", "success");
+      router.push("/games");
+    } finally {
+      setAdminDeleting(false);
     }
   }
 
@@ -526,9 +546,77 @@ export function GameDetailContent({
                       </button>
                     </div>
                   </div>
+                  {isAdmin && (
+                    <div className="pt-4 border-t border-outline-variant mt-4">
+                      {confirmingAdminDelete ? (
+                        <div className="space-y-3">
+                          <p className="font-mono text-[12px] text-error uppercase tracking-widest">
+                            This will permanently delete this game and all its feedback. Are you sure?
+                          </p>
+                          <button
+                            type="button"
+                            disabled={adminDeleting}
+                            onClick={adminDeleteGame}
+                            className="w-full border border-error bg-error/20 text-error py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-error/30 transition-all disabled:opacity-50 cursor-pointer"
+                          >
+                            {adminDeleting ? "DELETING..." : "CONFIRM DELETE"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setConfirmingAdminDelete(false)}
+                            className="w-full border border-outline-variant py-2 font-mono text-[13px] tracking-[0.15em] uppercase text-muted hover:text-white transition-all cursor-pointer"
+                          >
+                            CANCEL
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setConfirmingAdminDelete(true)}
+                          className="w-full border border-error/40 py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase text-error/70 hover:border-error hover:text-error transition-all cursor-pointer"
+                        >
+                          DELETE BUILD (ADMIN)
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </>
               ) : (
                 <>
+                  {isAdmin && (
+                    <div className="pt-4 border-t border-outline-variant mt-4">
+                      {confirmingAdminDelete ? (
+                        <div className="space-y-3">
+                          <p className="font-mono text-[12px] text-error uppercase tracking-widest">
+                            This will permanently delete this game and all its feedback. Are you sure?
+                          </p>
+                          <button
+                            type="button"
+                            disabled={adminDeleting}
+                            onClick={adminDeleteGame}
+                            className="w-full border border-error bg-error/20 text-error py-3 font-mono text-[14px] font-bold tracking-[0.2em] uppercase hover:bg-error/30 transition-all disabled:opacity-50 cursor-pointer"
+                          >
+                            {adminDeleting ? "DELETING..." : "CONFIRM DELETE"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setConfirmingAdminDelete(false)}
+                            className="w-full border border-outline-variant py-2 font-mono text-[13px] tracking-[0.15em] uppercase text-muted hover:text-white transition-all cursor-pointer"
+                          >
+                            CANCEL
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setConfirmingAdminDelete(true)}
+                          className="w-full border border-error/40 py-4 font-mono text-[14px] font-bold tracking-[0.2em] uppercase text-error/70 hover:border-error hover:text-error transition-all cursor-pointer"
+                        >
+                          DELETE BUILD (ADMIN)
+                        </button>
+                      )}
+                    </div>
+                  )}
                   {game.is_live && (
                     <div className="border border-success/50 bg-success/10 p-4 mb-3">
                       <div className="flex items-center gap-2 mb-3">

@@ -44,6 +44,7 @@ export default async function GameDetailPage({
         ).toFixed(1)
       : "0.0";
   const isOwner = user.id === game.owner_id;
+  const isAdmin = profile.is_admin;
 
   const { data: existingReview } = await supabase
     .from("feedback_responses")
@@ -70,6 +71,7 @@ export default async function GameDetailPage({
         feedbackCount={feedbackCount}
         avgRating={avgRating}
         isOwner={isOwner}
+        isAdmin={isAdmin}
         hasReviewed={hasReviewed}
         collaborators={collaborators}
       />
