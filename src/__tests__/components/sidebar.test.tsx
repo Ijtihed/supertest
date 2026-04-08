@@ -20,9 +20,9 @@ const mockProfile = {
 };
 
 describe("Sidebar", () => {
-  it("renders the superTest brand", () => {
+  it("renders the supertest brand", () => {
     const { container } = render(<Sidebar profile={mockProfile} />);
-    expect(container.textContent).toContain("superTest");
+    expect(container.textContent).toContain("supertest");
   });
 
   it("renders all nav items", () => {

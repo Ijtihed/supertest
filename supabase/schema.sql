@@ -1,4 +1,4 @@
--- superTest Database Schema
+-- supertest Database Schema
 -- Run this in your Supabase SQL editor to set up the database
 
 -- Enable UUID generation

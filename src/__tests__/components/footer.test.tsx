@@ -3,9 +3,9 @@ import { Footer } from "@/components/layout/footer";
 import { renderWithProviders as render } from "../test-utils";
 
 describe("Footer", () => {
-  it("renders superTest branding", () => {
+  it("renders supertest branding", () => {
     const { container } = render(<Footer />);
-    expect(container.textContent).toContain("superTest");
+    expect(container.textContent).toContain("supertest");
   });
 
   it("renders navigation links", () => {
