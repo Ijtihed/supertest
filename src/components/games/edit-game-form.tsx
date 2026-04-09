@@ -187,7 +187,9 @@ export function EditGameForm({
               game_id: game.id,
               question_text: q.text,
               question_type: q.type,
-              options: q.options ?? null,
+              options: q.type === "multiple_choice"
+                ? (q.options ?? []).filter((o) => o.trim())
+                : null,
               sort_order: i,
             }))
           );
