@@ -356,6 +356,33 @@ export function FeedbackForm({
                       ))}
                     </div>
                   )}
+                  {q.question_type === "multiple_choice" && (q.options ?? []).length > 0 && (
+                    <div className="flex flex-wrap gap-0">
+                      {(q.options ?? []).filter(Boolean).map((opt, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() =>
+                            setCustomAnswers((prev) => ({
+                              ...prev,
+                              [q.id]: opt,
+                            }))
+                          }
+                          className={`px-5 py-3 font-mono text-[14px] tracking-widest uppercase transition-all cursor-pointer ${
+                            i === 0
+                              ? "border border-outline-variant"
+                              : "border-y border-r border-outline-variant"
+                          } ${
+                            customAnswers[q.id] === opt
+                              ? "bg-white text-black"
+                              : "hover:bg-white/10"
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

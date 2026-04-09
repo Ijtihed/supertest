@@ -85,7 +85,46 @@ export function EditGameForm({
 
   function updateQuestion(id: string, updates: Partial<CustomQuestion>) {
     setCustomQuestions((prev) =>
-      prev.map((q) => (q.id === id ? { ...q, ...updates } : q))
+      prev.map((q) => {
+        if (q.id !== id) return q;
+        const updated = { ...q, ...updates };
+        if (updates.type === "multiple_choice" && !updated.options?.length) {
+          updated.options = ["", ""];
+        }
+        if (updates.type && updates.type !== "multiple_choice") {
+          updated.options = undefined;
+        }
+        return updated;
+      })
+    );
+  }
+
+  function updateOption(questionId: string, index: number, value: string) {
+    setCustomQuestions((prev) =>
+      prev.map((q) => {
+        if (q.id !== questionId) return q;
+        const opts = [...(q.options ?? [])];
+        opts[index] = value;
+        return { ...q, options: opts };
+      })
+    );
+  }
+
+  function addOption(questionId: string) {
+    setCustomQuestions((prev) =>
+      prev.map((q) =>
+        q.id === questionId ? { ...q, options: [...(q.options ?? []), ""] } : q
+      )
+    );
+  }
+
+  function removeOption(questionId: string, index: number) {
+    setCustomQuestions((prev) =>
+      prev.map((q) => {
+        if (q.id !== questionId) return q;
+        const opts = (q.options ?? []).filter((_, i) => i !== index);
+        return { ...q, options: opts };
+      })
     );
   }
 
@@ -366,48 +405,73 @@ export function EditGameForm({
             </div>
             <div className="flex flex-col gap-3">
               {customQuestions.map((q, i) => (
-                <div
-                  key={q.id}
-                  className="flex items-center gap-3 p-4 border border-outline-variant bg-surface-lowest"
-                >
-                  <span className="material-symbols-outlined text-outline-variant cursor-grab active:cursor-grabbing text-sm">
-                    drag_indicator
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <span className="font-mono text-[13px] text-muted uppercase block mb-1">
-                      Q{String(i + 1).padStart(2, "0")} {"/ "}{q.type.toUpperCase().replace("_", "/")}
+                <div key={q.id} className="border border-outline-variant bg-surface-lowest">
+                  <div className="flex items-center gap-3 p-4">
+                    <span className="material-symbols-outlined text-outline-variant cursor-grab active:cursor-grabbing text-sm">
+                      drag_indicator
                     </span>
-                    <input
-                      type="text"
-                      value={q.text}
+                    <div className="flex-1 min-w-0">
+                      <span className="font-mono text-[13px] text-muted uppercase block mb-1">
+                        Q{String(i + 1).padStart(2, "0")} {"/ "}{q.type.toUpperCase().replace("_", "/")}
+                      </span>
+                      <input
+                        type="text"
+                        value={q.text}
+                        onChange={(e) =>
+                          updateQuestion(q.id, { text: e.target.value })
+                        }
+                        placeholder={t.newGame.questionPlaceholder}
+                        className="w-full bg-transparent border-0 p-0 font-mono text-[14px] text-white focus:ring-0 placeholder:text-muted/40"
+                      />
+                    </div>
+                    <select
+                      value={q.type}
                       onChange={(e) =>
-                        updateQuestion(q.id, { text: e.target.value })
+                        updateQuestion(q.id, {
+                          type: e.target.value as QuestionType,
+                        })
                       }
-                      placeholder={t.newGame.questionPlaceholder}
-                      className="w-full bg-transparent border-0 p-0 font-mono text-[14px] text-white focus:ring-0 placeholder:text-muted/40"
-                    />
+                      className="bg-surface-lowest border border-outline-variant font-mono text-[14px] text-muted px-2 py-1 shrink-0"
+                    >
+                      <option value="text">TEXT</option>
+                      <option value="rating">RATING</option>
+                      <option value="yes_no">YES/NO</option>
+                      <option value="multiple_choice">MULTI</option>
+                    </select>
+                    <button
+                      type="button"
+                      onClick={() => removeQuestion(q.id)}
+                      className="material-symbols-outlined text-outline-variant hover:text-error cursor-pointer text-sm shrink-0"
+                    >
+                      close
+                    </button>
                   </div>
-                  <select
-                    value={q.type}
-                    onChange={(e) =>
-                      updateQuestion(q.id, {
-                        type: e.target.value as QuestionType,
-                      })
-                    }
-                    className="bg-surface-lowest border border-outline-variant font-mono text-[14px] text-muted px-2 py-1 shrink-0"
-                  >
-                    <option value="text">TEXT</option>
-                    <option value="rating">RATING</option>
-                    <option value="yes_no">YES/NO</option>
-                    <option value="multiple_choice">MULTI</option>
-                  </select>
-                  <button
-                    type="button"
-                    onClick={() => removeQuestion(q.id)}
-                    className="material-symbols-outlined text-outline-variant hover:text-error cursor-pointer text-sm shrink-0"
-                  >
-                    close
-                  </button>
+                  {q.type === "multiple_choice" && (
+                    <div className="px-4 pb-4 pt-1 border-t border-outline-variant/50 ml-9 space-y-2">
+                      {(q.options ?? []).map((opt, oi) => (
+                        <div key={oi} className="flex items-center gap-2">
+                          <span className="font-mono text-[12px] text-muted w-5 shrink-0">{oi + 1}.</span>
+                          <input
+                            type="text"
+                            value={opt}
+                            onChange={(e) => updateOption(q.id, oi, e.target.value)}
+                            placeholder={`Option ${oi + 1}`}
+                            className="flex-1 bg-transparent border-0 border-b border-outline-variant/50 focus:border-white focus:ring-0 font-mono text-[13px] text-white placeholder:text-muted/40 px-1 py-1"
+                          />
+                          {(q.options?.length ?? 0) > 2 && (
+                            <button type="button" onClick={() => removeOption(q.id, oi)}
+                              className="material-symbols-outlined text-outline-variant hover:text-error cursor-pointer text-[16px] shrink-0">
+                              close
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                      <button type="button" onClick={() => addOption(q.id)}
+                        className="font-mono text-[12px] text-muted hover:text-white transition-colors cursor-pointer uppercase tracking-widest">
+                        + Add option
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
