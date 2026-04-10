@@ -448,6 +448,29 @@ export function EditGameForm({
                       close
                     </button>
                   </div>
+                  {q.type === "text" && (
+                    <div className="px-4 pb-3 pt-1 border-t border-outline-variant/50 ml-9">
+                      <div className="w-full border-b border-outline-variant/30 py-2">
+                        <span className="font-mono text-[12px] text-muted/40">Reviewer types a text answer here...</span>
+                      </div>
+                    </div>
+                  )}
+                  {q.type === "rating" && (
+                    <div className="px-4 pb-3 pt-2 border-t border-outline-variant/50 ml-9 flex items-center gap-3">
+                      <div className="flex gap-1">
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <div key={n} className="w-5 h-5 border border-outline-variant/40" />
+                        ))}
+                      </div>
+                      <span className="font-mono text-[12px] text-muted/40">1–5 scale</span>
+                    </div>
+                  )}
+                  {q.type === "yes_no" && (
+                    <div className="px-4 pb-3 pt-2 border-t border-outline-variant/50 ml-9 flex items-center gap-0">
+                      <div className="px-4 py-1.5 border border-outline-variant/40 font-mono text-[12px] text-muted/40">YES</div>
+                      <div className="px-4 py-1.5 border-y border-r border-outline-variant/40 font-mono text-[12px] text-muted/40">NO</div>
+                    </div>
+                  )}
                   {q.type === "multiple_choice" && (
                     <div className="px-4 pb-4 pt-1 border-t border-outline-variant/50 ml-9 space-y-2">
                       {(q.options ?? []).map((opt, oi) => (
