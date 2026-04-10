@@ -182,7 +182,7 @@ export function NewGameForm() {
 
       const activeQuestions = customQuestions.filter((q) => q.text.trim());
       if (activeQuestions.length > 0 && game) {
-        await supabase.from("feedback_questions").insert(
+        const { error: qError } = await supabase.from("feedback_questions").insert(
           activeQuestions.map((q, i) => ({
             game_id: game.id,
             question_text: q.text,
@@ -193,6 +193,9 @@ export function NewGameForm() {
             sort_order: i,
           }))
         );
+        if (qError) {
+          addToast("Game created but custom questions failed to save", "error");
+        }
       }
 
       addToast("Game published!", "success");

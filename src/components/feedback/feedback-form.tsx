@@ -383,6 +383,20 @@ export function FeedbackForm({
                       ))}
                     </div>
                   )}
+                  {q.question_type === "multiple_choice" && (!(q.options ?? []).some(Boolean)) && (
+                    <input
+                      type="text"
+                      value={customAnswers[q.id] ?? ""}
+                      onChange={(e) =>
+                        setCustomAnswers((prev) => ({
+                          ...prev,
+                          [q.id]: e.target.value,
+                        }))
+                      }
+                      placeholder={t.feedback.customAnswerPlaceholder}
+                      className="w-full bg-surface-lowest border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-white font-mono text-sm placeholder:text-muted/50 px-3 py-3"
+                    />
+                  )}
                 </div>
               ))}
             </div>
