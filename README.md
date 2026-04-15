@@ -1,6 +1,6 @@
 <div align="center">
 
-# superTest
+# [superTest](https://supertest.ai.supercell.dev/games)
 
 ### Playtesting infra
 
